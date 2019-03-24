@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms';
 import { List } from 'src/app/shared/model/list';
 import { Task } from 'src/app/shared/model/task';
+import { ListsService } from 'src/app/shared/services/lists.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-home',
@@ -11,36 +13,50 @@ import { Task } from 'src/app/shared/model/task';
 export class HomeComponent implements OnInit {
 
   form: FormGroup;
-  chosenList: List;
-  lists: List[] = [];
-  tasks: Task[] = [];
-  tasks2: Task[] = [];
+  chosenListForm: FormGroup;
+  lists: Observable<List[]>;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private listService: ListsService) { }
 
-  loadChosenList(name: string): void {
-    this.chosenList = this.lists.find(list => list.name === name);
+  loadChosenList(list: List): void {
+    this.chosenListForm = this.initForm();
+    this.chosenListForm.patchValue(list);
+    const tasks = this.chosenListForm.get('tasks') as FormArray;
+    list.tasks.forEach(task => {
+      tasks.push(new FormControl(task));
+    });
+  }
+
+  get f(): any {
+    return this.form.controls;
+  }
+
+  createList(form: FormGroup): void {
+    this.listService.createList(form.value);
+  }
+
+  updateList(form: FormGroup): void {
+    this.listService.updateList(form.value);
+  }
+
+  deleteList(form: FormGroup): void {
+    this.listService.deleteList(form.value.id);
+  }
+
+  getFormArray(): any {
+    const array = this.chosenListForm.get('tasks') as FormArray;
+    return array.controls;
   }
 
   ngOnInit() {
-    this.initForm();
-    const task = new Task("Zadanie testowe", false, false);
-    const task2 = new Task("Zadanie testowe 2", true, false);
-    const task3 = new Task("Zadanie testowe 3", false, true);
-    this.tasks.push(task);
-    this.tasks.push(task2);
-    this.tasks.push(task3);
-    this.tasks2.push(task3);
-    const list = new List("Nazwa listy 1", this.tasks);
-    const list2 = new List("Nazwa listy 2", this.tasks2);
-    this.lists.push(list);
-    this.lists.push(list2);
-    this.chosenList = list;
-    console.log(this.chosenList);
+    this.form = this.initForm();
+    this.chosenListForm = this.initForm();
+    this.lists = this.listService.getLists();
   }
 
-  initForm(): void {
-    this.form = this.formBuilder.group({
+  initForm(): FormGroup {
+    return this.formBuilder.group({
+      id: [null],
       name: [null, Validators.required],
       tasks: this.formBuilder.array([])
     });
