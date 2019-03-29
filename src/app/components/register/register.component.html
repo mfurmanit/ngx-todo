@@ -1,0 +1,12 @@
+<div class="header"><h1>Rejestracja w aplikacji Ngx-Todo!</h1></div>
+
+<div class="login-page">
+  <div class="form">
+    <form class="register-form" *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <input type="text" placeholder="email" formControlName="email"/>
+      <input type="password" placeholder="password" formControlName="password"/>
+      <button>create</button>
+      <p class="message">Posiadasz już konto? <a href="#">Zaloguj się!</a></p>
+    </form>
+  </div>
+</div>

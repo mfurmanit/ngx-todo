@@ -4,13 +4,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../shared/services/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
-  loginForm: FormGroup;
+  registerForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,25 +20,22 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+    this.registerForm = this.formBuilder.group({
+      email: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    this.authenticationService.logout();
   }
 
   get f() {
-    return this.loginForm.controls;
+    return this.registerForm.controls;
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
 
-    this.authenticationService.login({email: this.f.username.value, password: this.f.password.value}).catch(error => console.log(error.code));
-    this.router.navigate(['dashboard']);
+    this.authenticationService.register({email: this.f.email.value, password: this.f.password.value}).then(() => this.router.navigate(['login']));
   }
 
 }

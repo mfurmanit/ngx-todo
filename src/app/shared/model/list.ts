@@ -1,13 +1,13 @@
-import { Task } from './task';
+import {Task} from './task';
 
 export class List {
-    id?: string;
-    name?: string;
-    tasks?: Task[];
+  id?: string;
+  name?: string;
+  tasks?: Task[];
 
-    constructor(names: string, taskss: Task[]) {
-        this.id = null;
-        this.name = names;
-        this.tasks = taskss;
-    }
+  constructor(names: string, tasks: Task[]) {
+    this.id = null;
+    this.name = names;
+    this.tasks = tasks;
+  }
 }

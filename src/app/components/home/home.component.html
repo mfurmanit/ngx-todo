@@ -1,27 +1,38 @@
-<div class="block">
+<div class="navbar"></div>
+
+<div class="blocks-wrapper">
+<div class="block-lists">
+  <div class="block">
   <form *ngIf="form" [formGroup]="form" (ngSubmit)="createList(form)">
     <div>
-      <input class="field" type="text" formControlName="name" placeholder="Nowa lista" />
+      <input class="field" type="text" formControlName="name" placeholder="Nowa lista"/>
     </div>
     <div>
       <button class="button" type="submit" [disabled]="f.name.errors"> Dodaj listę </button>
     </div>
   </form>
 </div>
+  <ul *ngFor="let list of (lists | async)">
+    <li (click)="loadChosenList(list)"> {{list?.name}} </li>
+  </ul>
+</div>
+<div class="block-tasks">
 
-<div class="block">
-  <ng-container *ngFor="let list of (lists | async)">
-    <div (click)="loadChosenList(list)" class="block-list"> {{list?.name}} </div>
-  </ng-container>
+  <div *ngIf="chosenListForm" [formGroup]="chosenListForm" class="block">
+    <input class="field" formControlName="name" placeholder=""/>
+    <ul *ngFor="let task of getFormArray()">
+      <li> {{task.value}} </li>
+    </ul>
+    <div>
+      <button class="button" (click)="updateList(chosenListForm)">Update</button>
+    </div>
+    <div>
+      <button class="button" (click)="deleteList(chosenListForm)">Delete</button>
+    </div>
+  </div>
+
+</div>
 </div>
 
-<div></div>
 
-<div *ngIf="chosenListForm" [formGroup]="chosenListForm" class="block">
-  <input class="field" formControlName="name" placeholder="" />
-  <ng-container *ngFor="let task of getFormArray()">
-    <div class="block-list"> {{task.value}} </div>
-  </ng-container>
-  <div><button class="button" (click)="updateList(chosenListForm)">Update</button></div>
-  <div><button class="button" (click)="deleteList(chosenListForm)">Delete</button></div>
-</div>
+

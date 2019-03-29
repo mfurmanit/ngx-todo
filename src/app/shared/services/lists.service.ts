@@ -16,7 +16,7 @@ export class ListsService {
         return {
           id: list.payload.doc.id,
           ...list.payload.doc.data()
-        } as List
+        } as List;
       });
     }));
   }
