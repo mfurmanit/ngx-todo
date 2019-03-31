@@ -4,6 +4,7 @@ import { List } from 'src/app/shared/model/list';
 import { Task } from 'src/app/shared/model/task';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { Observable } from 'rxjs/internal/Observable';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class HomeComponent implements OnInit {
 
   form: FormGroup;
+  taskForm: FormGroup;
   chosenListForm: FormGroup;
   lists: Observable<List[]>;
 
@@ -43,6 +45,13 @@ export class HomeComponent implements OnInit {
     this.listService.deleteList(form.value.id);
   }
 
+  addTask(form: FormGroup): void {
+    const tasks = this.chosenListForm.get('tasks') as FormArray;
+    tasks.push(form);
+    this.taskForm = this.initTaskFormGroup();
+    this.listService.updateList(this.chosenListForm.value);
+  }
+
   getFormArray(): any {
     const array = this.chosenListForm.get('tasks') as FormArray;
     return array.controls;
@@ -51,7 +60,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.form = this.initForm();
     this.chosenListForm = this.initForm();
+    this.taskForm = this.initTaskFormGroup();
     this.lists = this.listService.getLists();
+    this.lists.subscribe(list => this.loadChosenList(list.filter(l => l.name != null)[0]));
   }
 
   initForm(): FormGroup {
@@ -62,9 +73,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  initTaskFormGroup(name: string): FormGroup {
+  initTaskFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [name],
+      name: [null],
       isDone: [false],
       isPartiallyDone: [false]
     });

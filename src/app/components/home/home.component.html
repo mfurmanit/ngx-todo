@@ -23,18 +23,28 @@
     <div class="block-tasks">
       <div class="block">
         <form *ngIf="chosenListForm" [formGroup]="chosenListForm">
-          <input class="field" formControlName="name" placeholder="" />
+          <input class="field" formControlName="name" [placeholder]="'nothing'" />
           <div>
-            <button class="button" (click)="updateList(chosenListForm)">Update</button>
+            <button class="button" (click)="updateList(chosenListForm)">Edytuj</button>
           </div>
           <div>
-            <button class="button" (click)="deleteList(chosenListForm)">Delete</button>
+            <button class="button" (click)="deleteList(chosenListForm)">Usuń</button>
           </div>
         </form>
       </div>
+
+      <div class="block">
+        <form *ngIf="taskForm" [formGroup]="taskForm">
+          <input class="field" formControlName="name" placeholder="Zadanie" />
+          <div>
+            <button class="button" (click)="addTask(taskForm)">Dodaj zadanie</button>
+          </div>
+        </form>
+      </div>
+
       <div class="siblings">
         <ul *ngFor="let task of getFormArray()">
-          <li> {{task.value}} </li>
+          <li> {{task.value.name}} </li>
         </ul>
       </div>
     </div>
