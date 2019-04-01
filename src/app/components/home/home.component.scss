@@ -3,6 +3,8 @@ body, html {
 }
 
 .navbar {
+  display: flex;
+  justify-content: space-between;
   background-color: #2ecc71;
   width: 100%;
   height: 60px;
@@ -11,6 +13,36 @@ body, html {
   transition: height 200ms ease-in;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.lists-anchors {
+  width: 140px;
+  border-right: solid 1px #25a75c;
+}
+
+.title {
+  width: 400px;
+  color: #fff;
+  font-size: 26px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  border-right: solid 1px #25a75c;
+  border-left: solid 1px #25a75c;
+  text-align: center;
+  line-height: 60px;
+}
+
+.user-anchor {
+  width: 70px;
+  border-left: solid 1px #25a75c;
+}
+
+.block-add {
+  height: 60px;
+}
+
+.list {
+  height: auto;
 }
 
 .blocks-wrapper {
@@ -29,7 +61,16 @@ body, html {
 }
 
 ul {
-  //list-style-image: url("C:/Users/maciej.furman/Desktop/ww/circle-empty.png");
+  list-style: none;
+}
+
+$colors: red, orange, yellow, green, blue, purple;
+$repeat: 20;
+
+@for $i from 1 through $repeat {
+  li:nth-child(#{length($colors)}n+#{$i}) {
+     color: lighten(nth($colors, random(length($colors))), 20%) !important;
+   }
 }
 
 li:hover {
@@ -66,18 +107,21 @@ li:hover {
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
 }
 
-.button {
+.button-add, .button {
   margin-top: 10px;
+  margin-left: 10px;
   display: inline-block;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   cursor: pointer;
-  padding: 10px 20px;
+  outline: none;
+  width: 30px;
+  height: 40px;
   border: 1px solid #25a75c;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  font: normal 16px / normal Tahoma, Geneva, sans-serif;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  font: normal 28px / normal Tahoma, Geneva, sans-serif;
   color: rgba(255, 255, 255, 0.9);
   -o-text-overflow: clip;
   text-overflow: clip;

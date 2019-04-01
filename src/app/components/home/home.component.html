@@ -1,17 +1,21 @@
-<div class="navbar"></div>
+<div class="navbar">
+
+  <div class="lists-anchors"></div>
+  <div class="title"> NGX - TODO </div>
+  <div class="user-anchor"></div>
+
+</div>
 
   <div class="blocks-wrapper">
 
     <div class="block-lists">
-      <div class="block">
-        <form *ngIf="form" [formGroup]="form" (ngSubmit)="createList(form)">
+      <div class="block-add">
+        <ng-container *ngIf="form" [formGroup]="form">
           <div>
             <input class="field" type="text" formControlName="name" placeholder="Nowa lista" />
+            <button class="button-add" type="submit" (click)="createList(form)" [disabled]="f.name.errors"> + </button>
           </div>
-          <div>
-            <button class="button" type="submit" [disabled]="f.name.errors"> Dodaj listę </button>
-          </div>
-        </form>
+        </ng-container>
       </div>
       <div class="list">
         <ul *ngFor="let list of (lists | async)">
