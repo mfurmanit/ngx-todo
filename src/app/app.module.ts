@@ -15,6 +15,9 @@ import { ListsService } from './shared/services/lists.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { SnackbarService } from './shared/services/snackbar.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     LoginComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [UserService, AngularFirestore, ListsService],
+  providers: [UserService, AngularFirestore, ListsService, SnackbarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

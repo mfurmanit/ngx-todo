@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { List } from 'src/app/shared/model/list';
 import { Task } from 'src/app/shared/model/task';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { Observable } from 'rxjs/internal/Observable';
-import {map} from 'rxjs/operators';
 import { TasksService } from '../../shared/services/tasks.service';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-home',
@@ -14,95 +14,96 @@ import { TasksService } from '../../shared/services/tasks.service';
 })
 export class HomeComponent implements OnInit {
 
-  form: FormGroup;
+  listForm: FormGroup;
   taskForm: FormGroup;
   chosenListForm: FormGroup;
-  chosenList;
+  chosenList: List;
   lists: Observable<List[]>;
+  tasks: Observable<Task[]>;
 
-  constructor(private formBuilder: FormBuilder, private listService: ListsService, private taskService: TasksService) { }
+  constructor(private formBuilder: FormBuilder,
+              private listService: ListsService,
+              private taskService: TasksService,
+              private snackBar: SnackbarService) {
+  }
+
+  ngOnInit() {
+    this.listForm = this.initListFormGroup();
+    this.chosenListForm = this.initListFormGroup();
+    this.taskForm = this.initTaskFormGroup();
+    this.lists = this.listService.getLists();
+  }
 
   loadChosenList(list: List): void {
-    this.chosenListForm = this.initForm();
+    this.chosenListForm = this.initListFormGroup();
     this.chosenListForm.patchValue(list);
-    const tasks = this.chosenListForm.get('tasks') as FormArray;
-    list.tasks.forEach(task => {
-      tasks.push(new FormControl(task));
-    });
+    this.chosenList = list;
+    this.tasks = this.taskService.getTasks(list.id);
   }
 
   get f(): any {
-    return this.form.controls;
+    return this.listForm.controls;
   }
 
   createList(form: FormGroup): void {
+    this.listForm = this.initListFormGroup();
     this.listService.createList(form.value);
+    this.snackBar.show('Nowa lista została utworzona pomyślnie!');
   }
 
   updateList(form: FormGroup): void {
     this.listService.updateList(form.value);
+    this.snackBar.show('Edycja listy przebiegła pomyślnie!');
   }
 
   deleteList(form: FormGroup): void {
     this.listService.deleteList(form.value.id);
+    this.snackBar.show('Wybrana lista została usunięta pomyślnie!');
   }
 
   addTask(form: FormGroup): void {
-    const tasks = this.chosenListForm.get('tasks') as FormArray;
-    tasks.push(form);
     this.taskForm = this.initTaskFormGroup();
-    this.listService.updateList(this.chosenListForm.value);
+    this.taskService.createTask(this.chosenList.id, form.value);
+    this.snackBar.show('Nowe zadanie zostało dodane pomyślnie!');
   }
 
-  getFormArray(): any {
-    const array = this.chosenListForm.get('tasks') as FormArray;
-    return array.controls;
+  updateTask(task: Task, doneIcon: boolean): void {
+    if (doneIcon) {
+      task.isDone = !task.isDone;
+    } else {
+      task.isPartiallyDone = !task.isPartiallyDone;
+    }
+
+    this.taskService.updateTask(this.chosenList.id, task);
+    this.snackBar.show('Edycja zadania przebiegła pomyślnie!');
   }
 
-  ngOnInit() {
-    this.form = this.initForm();
-    this.chosenListForm = this.initForm();
-    this.taskForm = this.initTaskFormGroup();
-    this.lists = this.listService.getLists();
-    // this.lists.subscribe(list => this.loadChosenList(list.filter(l => l.name != null)[0]));
-    // this.lists.subscribe(list => {
-    //   this.chosenList = list.filter(l => l.name != null)[0];
-    //   this.loadChosenList(this.chosenList);
-    // });
+  onMouseEnter(event, task: Task, doneIcon: boolean): void {
+    if (doneIcon) {
+      event.target.className = 'tick-full';
+    } else {
+      event.target.className = 'yellow-tick-full';
+    }
   }
 
-  initForm(): FormGroup {
+  onMouseLeave(event, task: Task, doneIcon: boolean): void {
+    if (doneIcon && !task.isDone) {
+      event.target.className = 'tick';
+    } else if (!doneIcon && !task.isPartiallyDone) {
+      event.target.className = 'yellow-tick';
+    }
+  }
+
+  private initListFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: [null],
-      name: [null, Validators.required],
-      tasks: this.formBuilder.array([])
+      name: [null, Validators.required]
     });
   }
 
-  log(): void {
-    // this.taskService.up
-    console.log('hi there!');
-  }
-
-  mouseEnter(event, task): void {
-    event.srcElement.className = 'img-content-tick-full';
-    console.log('entered!');
-    console.log(event);
-    console.log(task);
-  }
-
-  mouseLeave(event, task): void {
-    if (!task.isDone) {
-      event.srcElement.className = 'img-content-tick';
-    }
-    console.log('leaved!');
-    console.log(event);
-    console.log(task);
-  }
-
-  initTaskFormGroup(): FormGroup {
+  private initTaskFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [null],
+      name: [null, Validators.required],
       isDone: [false],
       isPartiallyDone: [false]
     });

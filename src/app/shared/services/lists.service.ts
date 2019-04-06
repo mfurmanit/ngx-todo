@@ -35,4 +35,5 @@ export class ListsService {
   deleteList(listId: string) {
     this.firestore.doc('lists/' + listId).delete();
   }
+
 }

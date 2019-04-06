@@ -1,5 +1,7 @@
 body, html {
   font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
@@ -9,8 +11,6 @@ body, html {
   width: 100%;
   height: 60px;
   border: solid 1px #25a75c;
-  -webkit-transition: height 200ms ease-in;
-  transition: height 200ms ease-in;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
@@ -34,21 +34,70 @@ body, html {
 
 .user-anchor {
   width: 70px;
+  height: 60px;
+  line-height: 60px;
   border-left: solid 1px #25a75c;
+  text-align: center;
+
+  fa {
+    font-size: 32px;
+    line-height: 60px;
+    color: #f1f1f1;
+  }
+
+  fa:hover {
+    cursor: pointer;
+  }
 }
 
-.list {
-  height: auto;
+.tick {
+  user-select:none;
+  margin: 0 5px;
+  background: url("../../../assets/img/tick_border.png") no-repeat;
+  background-size: cover;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+}
 
-  li {
-    text-transform: uppercase;
-  }
+.tick-full {
+  user-select:none;
+  margin: 0 5px;
+  background: url("../../../assets/img/tick.png") no-repeat;
+  background-size: cover;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.yellow-tick {
+  user-select:none;
+  background: url("../../../assets/img/tick_yellow_border.png") no-repeat;
+  background-size: cover;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.yellow-tick-full {
+  user-select:none;
+  background: url("../../../assets/img/tick_yellow.png") no-repeat;
+  background-size: cover;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 .blocks-wrapper {
   display: flex;
   width: 100%;
-  height: auto;
+  height: 100vh;
 }
 
 .block-lists {
@@ -57,82 +106,14 @@ body, html {
   height: auto;
   width: 40%;
   text-align: center;
-}
-
-//$colors: red, orange, yellow, green, blue, purple;
-//$repeat: 20;
-//
-//@for $i from 1 through $repeat {
-//  li:nth-child(#{length($colors)}n+#{$i}):before {
-//    color: lighten(nth($colors, random(length($colors))), 20%);
-//  }
-//}
-//
-
-//li:before {
-//  content: '';
-//  display: inline-block;
-//  height: 25px;
-//  vertical-align: middle;
-//  margin-right: 2px;
-//  width: 25px;
-//  background-image: url('../../../assets/img/tick_border.png');
-//  background-size: contain;
-//  background-repeat: no-repeat;
-//}
-//
-//li:hover:before {
-//  background-image: url('../../../assets/img/tick.png');
-//}
-
-
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  width: 100%;
-  height: auto;
-  line-height: 50px;
-  border-bottom: 1px solid #f1f1f1;
-  font-family: "Roboto", sans-serif;
-  color: black;
-}
-
-li span:hover {
-  text-decoration: underline;
-  cursor: pointer;
+  overflow-y: scroll;
 }
 
 .block-tasks {
   height: auto;
   flex: 1;
   border-right: 1px solid #f1f1f1;
-}
-
-.field {
-  display: inline-block;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  padding: 10px 20px;
-  border: 2px solid #25a75c;
-  outline: #25a75c;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  font: normal 16px / normal Tahoma, Geneva, sans-serif;
-  color: rgba(0, 0, 0, 1);
-  text-indent: 1px;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  word-spacing: 2px;
-  background: rgba(252, 252, 252, 1);
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0) inset;
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0) inset;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+  overflow-y: scroll;
 }
 
 .block-add {
@@ -145,10 +126,53 @@ li span:hover {
   padding: 10px;
 }
 
+.lists {
+  height: auto;
+
+  li {
+    text-transform: uppercase;
+  }
+}
+
+form {
+  display: inherit;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  user-select:none;
+  width: 100%;
+  height: auto;
+  line-height: 50px;
+  border-bottom: 1px solid #f1f1f1;
+  font-family: "Roboto", sans-serif;
+  color: black;
+  word-wrap: break-word;
+}
+
+li span {
+  margin-left: 5px;
+}
+
+li span:hover {
+  user-select:none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+fa {
+  line-height: 35px;
+}
+
 .field-add {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
   padding: 10px 20px;
   border: 2px solid #25a75c;
   outline: #25a75c;
@@ -161,8 +185,6 @@ li span:hover {
   text-overflow: clip;
   word-spacing: 2px;
   background: rgba(252, 252, 252, 1);
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0) inset;
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0) inset;
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
   width: 80%;
   margin-right: 5px;
@@ -179,59 +201,7 @@ li span:hover {
   font: normal 26px / normal Tahoma, Geneva, sans-serif;
   color: #25a75c;
   background: rgba(255, 255, 255, 0.9);
-  transition: 0.3s;
-}
-
-.img-content-tick {
-  margin: 0 5px;
-  //-moz-box-sizing: border-box;
-  //box-sizing: border-box;
-  background: url("../../../assets/img/tick_border.png") no-repeat;
-  background-size: cover;
-  width: 32px; /* Width of new image */
-  height: 32px; /* Height of new image */
-  display: inline-block;
-  vertical-align: middle;
-}
-
-fa {
-  line-height: 35px;
-}
-
-.img-content-tick-full {
-  margin: 0 5px;
-  //-moz-box-sizing: border-box;
-  //box-sizing: border-box;
-  background: url("../../../assets/img/tick.png") no-repeat;
-  background-size: cover;
-  width: 32px; /* Width of new image */
-  height: 32px; /* Height of new image */
-  display: inline-block;
-  vertical-align: middle;
-
-  cursor: pointer;
-}
-
-.img-content-yellow {
-  //-moz-box-sizing: border-box;
-  //box-sizing: border-box;
-  background: url("../../../assets/img/tick_yellow_border.png") no-repeat;
-  background-size: cover;
-  width: 32px; /* Width of new image */
-  height: 32px; /* Height of new image */
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.img-content-yellow:hover {
-  //-moz-box-sizing: border-box;
-  //box-sizing: border-box;
-  background: url("../../../assets/img/tick_yellow.png") no-repeat;
-  background-size: cover;
-  width: 32px; /* Width of new image */
-  height: 32px; /* Height of new image */
-  display: inline-block;
-  cursor: pointer;
+  transition: 0.2s;
 }
 
 .button-add:hover {
@@ -239,7 +209,6 @@ fa {
   outline: none;
   min-width: 40px;
   min-height: 40px;
-  //border: 1px solid #25a75c;
   -webkit-border-radius: 10%;
   border-radius: 10%;
   font: normal 26px / normal Tahoma, Geneva, sans-serif;
@@ -247,42 +216,10 @@ fa {
   background: #25a75c;
 }
 
-.block {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  padding: 20px;
-  overflow: hidden;
-  border: 3px solid;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-  font: normal 16px/1 "Times New Roman", Times, serif;
-  color: rgba(255, 255, 255, 1);
-  text-align: center;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  background: #ffffff;
-  -webkit-box-shadow: 0 3px 14px 8px rgba(173, 164, 164, 0.17);
-  box-shadow: 0 3px 14px 8px rgba(173, 164, 164, 0.17);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-}
 
-.block-list {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  padding: 10px;
-  margin: 2px;
-  overflow: hidden;
-  border: 1px solid rgba(173, 162, 162, 1);
-  font: normal 17px/1 Tahoma, Geneva, sans-serif;
-  color: #34495e;
-  text-align: center;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  letter-spacing: 1px;
-  background: #ffffff;
-  -webkit-box-shadow: 0 3px 14px 8px rgba(173, 164, 164, 0.17);
-  box-shadow: 0 3px 14px 8px rgba(173, 164, 164, 0.17);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-}
+
+
+
+
+
+
