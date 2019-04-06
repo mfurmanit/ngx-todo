@@ -14,6 +14,7 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { ListsService } from './shared/services/lists.service';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RegisterComponent } from './components/register/register.component';
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    AngularFontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AngularFireDatabaseModule,
@@ -35,4 +37,5 @@ import { RegisterComponent } from './components/register/register.component';
   providers: [UserService, AngularFirestore, ListsService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

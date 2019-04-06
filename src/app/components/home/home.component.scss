@@ -37,12 +37,12 @@ body, html {
   border-left: solid 1px #25a75c;
 }
 
-.block-add {
-  height: 60px;
-}
-
 .list {
   height: auto;
+
+  li {
+    text-transform: uppercase;
+  }
 }
 
 .blocks-wrapper {
@@ -52,34 +52,62 @@ body, html {
 }
 
 .block-lists {
-  padding: 20px;
   border-right: 1px solid #f1f1f1;
   background-color: #f39c1203;
   height: auto;
-  width: 30%;
+  width: 40%;
   text-align: center;
 }
 
+//$colors: red, orange, yellow, green, blue, purple;
+//$repeat: 20;
+//
+//@for $i from 1 through $repeat {
+//  li:nth-child(#{length($colors)}n+#{$i}):before {
+//    color: lighten(nth($colors, random(length($colors))), 20%);
+//  }
+//}
+//
+
+//li:before {
+//  content: '';
+//  display: inline-block;
+//  height: 25px;
+//  vertical-align: middle;
+//  margin-right: 2px;
+//  width: 25px;
+//  background-image: url('../../../assets/img/tick_border.png');
+//  background-size: contain;
+//  background-repeat: no-repeat;
+//}
+//
+//li:hover:before {
+//  background-image: url('../../../assets/img/tick.png');
+//}
+
+
+
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-$colors: red, orange, yellow, green, blue, purple;
-$repeat: 20;
-
-@for $i from 1 through $repeat {
-  li:nth-child(#{length($colors)}n+#{$i}) {
-     color: lighten(nth($colors, random(length($colors))), 20%) !important;
-   }
+li {
+  width: 100%;
+  height: auto;
+  line-height: 50px;
+  border-bottom: 1px solid #f1f1f1;
+  font-family: "Roboto", sans-serif;
+  color: black;
 }
 
-li:hover {
+li span:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
 .block-tasks {
-  padding: 20px;
   height: auto;
   flex: 1;
   border-right: 1px solid #f1f1f1;
@@ -107,27 +135,116 @@ li:hover {
   text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
 }
 
-.button-add, .button {
-  margin-top: 10px;
-  margin-left: 10px;
-  display: inline-block;
+.block-add {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 10px;
+}
+
+.field-add {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  cursor: pointer;
-  outline: none;
-  width: 30px;
-  height: 40px;
-  border: 1px solid #25a75c;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  font: normal 28px / normal Tahoma, Geneva, sans-serif;
-  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  border: 2px solid #25a75c;
+  outline: #25a75c;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  font: normal 16px / normal Tahoma, Geneva, sans-serif;
+  color: rgba(0, 0, 0, 1);
+  text-indent: 1px;
   -o-text-overflow: clip;
   text-overflow: clip;
+  word-spacing: 2px;
+  background: rgba(252, 252, 252, 1);
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0) inset;
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0) inset;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+  width: 80%;
+  margin-right: 5px;
+}
+
+.button-add {
+  cursor: pointer;
+  outline: none;
+  min-width: 40px;
+  min-height: 40px;
+  border: 2px solid #25a75c;
+  -webkit-border-radius: 10%;
+  border-radius: 10%;
+  font: normal 26px / normal Tahoma, Geneva, sans-serif;
+  color: #25a75c;
+  background: rgba(255, 255, 255, 0.9);
+  transition: 0.3s;
+}
+
+.img-content-tick {
+  margin: 0 5px;
+  //-moz-box-sizing: border-box;
+  //box-sizing: border-box;
+  background: url("../../../assets/img/tick_border.png") no-repeat;
+  background-size: cover;
+  width: 32px; /* Width of new image */
+  height: 32px; /* Height of new image */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+fa {
+  line-height: 35px;
+}
+
+.img-content-tick-full {
+  margin: 0 5px;
+  //-moz-box-sizing: border-box;
+  //box-sizing: border-box;
+  background: url("../../../assets/img/tick.png") no-repeat;
+  background-size: cover;
+  width: 32px; /* Width of new image */
+  height: 32px; /* Height of new image */
+  display: inline-block;
+  vertical-align: middle;
+
+  cursor: pointer;
+}
+
+.img-content-yellow {
+  //-moz-box-sizing: border-box;
+  //box-sizing: border-box;
+  background: url("../../../assets/img/tick_yellow_border.png") no-repeat;
+  background-size: cover;
+  width: 32px; /* Width of new image */
+  height: 32px; /* Height of new image */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.img-content-yellow:hover {
+  //-moz-box-sizing: border-box;
+  //box-sizing: border-box;
+  background: url("../../../assets/img/tick_yellow.png") no-repeat;
+  background-size: cover;
+  width: 32px; /* Width of new image */
+  height: 32px; /* Height of new image */
+  display: inline-block;
+  cursor: pointer;
+}
+
+.button-add:hover {
+  cursor: pointer;
+  outline: none;
+  min-width: 40px;
+  min-height: 40px;
+  //border: 1px solid #25a75c;
+  -webkit-border-radius: 10%;
+  border-radius: 10%;
+  font: normal 26px / normal Tahoma, Geneva, sans-serif;
+  color: rgba(255, 255, 255, 0.9);
   background: #25a75c;
-  -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .block {

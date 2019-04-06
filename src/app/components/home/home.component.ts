@@ -5,6 +5,7 @@ import { Task } from 'src/app/shared/model/task';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { Observable } from 'rxjs/internal/Observable';
 import {map} from 'rxjs/operators';
+import { TasksService } from '../../shared/services/tasks.service';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,10 @@ export class HomeComponent implements OnInit {
   form: FormGroup;
   taskForm: FormGroup;
   chosenListForm: FormGroup;
+  chosenList;
   lists: Observable<List[]>;
 
-  constructor(private formBuilder: FormBuilder, private listService: ListsService) { }
+  constructor(private formBuilder: FormBuilder, private listService: ListsService, private taskService: TasksService) { }
 
   loadChosenList(list: List): void {
     this.chosenListForm = this.initForm();
@@ -62,7 +64,11 @@ export class HomeComponent implements OnInit {
     this.chosenListForm = this.initForm();
     this.taskForm = this.initTaskFormGroup();
     this.lists = this.listService.getLists();
-    this.lists.subscribe(list => this.loadChosenList(list.filter(l => l.name != null)[0]));
+    // this.lists.subscribe(list => this.loadChosenList(list.filter(l => l.name != null)[0]));
+    // this.lists.subscribe(list => {
+    //   this.chosenList = list.filter(l => l.name != null)[0];
+    //   this.loadChosenList(this.chosenList);
+    // });
   }
 
   initForm(): FormGroup {
@@ -71,6 +77,27 @@ export class HomeComponent implements OnInit {
       name: [null, Validators.required],
       tasks: this.formBuilder.array([])
     });
+  }
+
+  log(): void {
+    // this.taskService.up
+    console.log('hi there!');
+  }
+
+  mouseEnter(event, task): void {
+    event.srcElement.className = 'img-content-tick-full';
+    console.log('entered!');
+    console.log(event);
+    console.log(task);
+  }
+
+  mouseLeave(event, task): void {
+    if (!task.isDone) {
+      event.srcElement.className = 'img-content-tick';
+    }
+    console.log('leaved!');
+    console.log(event);
+    console.log(task);
   }
 
   initTaskFormGroup(): FormGroup {
