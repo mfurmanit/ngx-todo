@@ -18,6 +18,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SnackbarService } from './shared/services/snackbar.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    NavbarComponent,
+    UserPanelComponent
   ],
   imports: [
     BrowserModule,
