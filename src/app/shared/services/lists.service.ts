@@ -8,7 +8,8 @@ import { map } from 'rxjs/operators';
 })
 export class ListsService {
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {
+  }
 
   getLists() {
     return this.firestore.collection('lists').snapshotChanges().pipe(map(lists => {
