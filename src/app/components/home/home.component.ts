@@ -8,6 +8,7 @@ import { SnackbarService } from '../../shared/services/snackbar.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { isNullOrUndefined } from 'util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,9 @@ export class HomeComponent implements OnInit {
               private taskService: TasksService,
               private route: ActivatedRoute,
               private authService: AuthenticationService,
-              private snackBar: SnackbarService) {
+              private snackBar: SnackbarService,
+              private translate: TranslateService) {
+    this.translate.setDefaultLang('pl');
   }
 
   ngOnInit() {
@@ -61,16 +64,11 @@ export class HomeComponent implements OnInit {
     this.taskService.getTasks(this.userId, list.id).subscribe(data => this.tasks = data);
   }
 
-
-  get f(): any {
-    return this.listForm.controls;
-  }
-
   createList(form: FormGroup): void {
     this.listForm = this.initListFormGroup();
     if (form.valid) {
       this.listService.createList(this.userId, form.value);
-      this.snackBar.show('Nowa lista została utworzona pomyślnie!');
+      this.snackBar.show(this.translate.instant('messages.listCreated'));
     } else {
       if (isNullOrUndefined(form.value.name) || form.value.name === '') {
         this.snackBar.show('Nazwa listy nie może być pusta!');
@@ -94,11 +92,15 @@ export class HomeComponent implements OnInit {
   }
 
   deleteList(form: FormGroup): void {
-    this.listService.deleteList(this.userId, form.value.id);
-    this.snackBar.show('Wybrana lista została usunięta pomyślnie!');
-    if (!isNullOrUndefined(this.lists) && this.lists.length > 0) {
-      this.loadChosenList(this.lists[0]);
-    }
+    this.listService.deleteList(this.userId, form.value.id).then(() => {
+      this.lists = this.lists.filter(value => value.id !== form.value.id);
+      this.snackBar.show('Wybrana lista została usunięta pomyślnie!');
+      if (!isNullOrUndefined(this.lists) && this.lists.length > 0) {
+        this.loadChosenList(this.lists[0]);
+      } else {
+        this.chosenList = null;
+      }
+    });
   }
 
   addTask(form: FormGroup): void {

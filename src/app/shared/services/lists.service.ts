@@ -33,8 +33,8 @@ export class ListsService {
     this.firestore.doc(`users/${userId}/lists/${listId}`).update(list);
   }
 
-  deleteList(userId: string, listId: string) {
-    this.firestore.doc(`users/${userId}/lists/${listId}`).delete();
+  deleteList(userId: string, listId: string): any {
+    return this.firestore.doc(`users/${userId}/lists/${listId}`).delete();
   }
 
 }

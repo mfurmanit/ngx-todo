@@ -144,6 +144,10 @@ li span:hover {
   cursor: pointer;
 }
 
+.block-tasks li span:hover {
+  text-decoration: underline;
+}
+
 .task-archive-done {
   @extend .task-archive;
   text-decoration: line-through;
