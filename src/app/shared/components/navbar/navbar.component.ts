@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { isNullOrUndefined } from 'util';
@@ -10,7 +10,11 @@ import { isNullOrUndefined } from 'util';
 })
 export class NavbarComponent implements OnInit {
 
-  isArchive = false;
+  isArchive: boolean = false;
+  buttonsShown: boolean = true;
+
+  @Output() hideLists = new EventEmitter();
+  @Output() hideTasks = new EventEmitter();
 
   constructor(private router: Router,
               private authService: AuthenticationService,
@@ -18,6 +22,8 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.buttonsShown = this.router.url !== '/user-panel';
+
     this.route.params.subscribe(({isArchive}) => {
       if (!isNullOrUndefined(isArchive)) {
         this.isArchive = JSON.parse(isArchive);

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { List } from 'src/app/shared/model/list';
 import { Task } from 'src/app/shared/model/task';
 import { ListsService } from 'src/app/shared/services/lists.service';
-import { Observable } from 'rxjs/internal/Observable';
 import { TasksService } from '../../shared/services/tasks.service';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
@@ -27,7 +26,8 @@ export class HomeComponent implements OnInit {
   tasks: Task[];
   userId: string;
   isArchive: boolean;
-  showLists: boolean = true;
+  listsShown: boolean = true;
+  tasksShown: boolean = true;
 
   constructor(private formBuilder: FormBuilder,
               private listService: ListsService,
@@ -46,12 +46,21 @@ export class HomeComponent implements OnInit {
     this.listService.getLists(this.userId).subscribe(data => this.lists = data);
   }
 
+  hideLists(): void {
+    this.listsShown = !this.listsShown;
+  }
+
+  hideTasks(): void {
+    this.tasksShown = !this.tasksShown;
+  }
+
   loadChosenList(list: List): void {
     this.chosenListForm = this.initListFormGroup();
     this.chosenListForm.patchValue(list);
     this.chosenList = list;
     this.taskService.getTasks(this.userId, list.id).subscribe(data => this.tasks = data);
   }
+
 
   get f(): any {
     return this.listForm.controls;

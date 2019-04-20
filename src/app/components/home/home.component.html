@@ -1,10 +1,10 @@
-<app-navbar></app-navbar>
+<app-navbar (hideTasks)="hideTasks()" (hideLists)="hideLists()"></app-navbar>
 
 <div class="blocks-wrapper">
 
-    <div [style.width]="chosenList ? '40%' : '100%'" class="block-lists">
+    <div [style.width]="chosenList ? '50%' : '100%'" *ngIf="listsShown" class="block-lists">
       <div class="block-info" *ngIf="!chosenList"> Witaj w aplikacji - wybierz listę aby wyświetlić zadania! </div>
-      <div class="block-info" *ngIf="chosenList && showLists"> Wybierz inną listę lub dodaj nową! </div>
+      <div class="block-info" *ngIf="chosenList"> Wybierz inną listę lub dodaj nową! </div>
       <div class="block-add">
         <form *ngIf="listForm" [formGroup]="listForm">
             <input class="field-add" type="text" formControlName="name" placeholder="Wprowadź nazwę nowej listy" />
@@ -19,30 +19,32 @@
     </div>
 
     <div *ngIf="chosenList" class="block-tasks">
-      <div class="block-info" *ngIf="chosenList && !isArchive"> Oznacz zadanie lub edytuj listę! </div>
-      <div class="block-add" *ngIf="chosenList && !isArchive">
-        <form *ngIf="chosenListForm" [formGroup]="chosenListForm">
-          <input class="field-add" type="text" formControlName="name" placeholder="Lista" />
-            <button *ngIf="!isArchive" class="button-add" (click)="updateList(chosenListForm)"><fa name="pencil"></fa></button>
-            <button *ngIf="!isArchive" class="button-add" (click)="deleteList(chosenListForm)"><fa name="trash"></fa></button>
-        </form>
-      </div>
+      <ng-container *ngIf="tasksShown">
+        <div class="block-info" *ngIf="chosenList && !isArchive"> Oznacz zadanie lub edytuj listę! </div>
+        <div class="block-add" *ngIf="chosenList && !isArchive">
+          <form *ngIf="chosenListForm" [formGroup]="chosenListForm">
+            <input class="field-add" type="text" formControlName="name" placeholder="Lista" />
+              <button *ngIf="!isArchive" class="button-add" (click)="updateList(chosenListForm)"><fa name="pencil"></fa></button>
+              <button *ngIf="!isArchive" class="button-add" (click)="deleteList(chosenListForm)"><fa name="trash"></fa></button>
+          </form>
+        </div>
 
-      <div class="block-add" *ngIf="!isArchive">
-        <form *ngIf="taskForm && chosenList" [formGroup]="taskForm">
-          <input class="field-add" formControlName="name" placeholder="Wprowadź nazwę nowego zadania" />
-            <button class="button-add" (click)="addTask(taskForm)"><fa name="plus"></fa></button>
-        </form>
-      </div>
+        <div class="block-add" *ngIf="!isArchive">
+          <form *ngIf="taskForm && chosenList" [formGroup]="taskForm">
+            <input class="field-add" formControlName="name" placeholder="Wprowadź nazwę nowego zadania" />
+              <button class="button-add" (click)="addTask(taskForm)"><fa name="plus"></fa></button>
+          </form>
+        </div>
 
-      <div class="block-info" *ngIf="!isArchive && chosenTask"> Edytuj wybrane zadanie! </div>
-      <div class="block-add" *ngIf="!isArchive && editTaskForm && chosenTask">
-        <form [formGroup]="editTaskForm">
-          <input class="field-add" formControlName="name" placeholder="Edycja zadania" />
-          <button class="button-add" (click)="editTask(editTaskForm)"><fa name="pencil"></fa></button>
-          <button class="button-add" (click)="deleteTask()"><fa name="trash"></fa></button>
-        </form>
-      </div>
+        <div class="block-info" *ngIf="!isArchive && chosenTask"> Edytuj wybrane zadanie! </div>
+        <div class="block-add" *ngIf="!isArchive && editTaskForm && chosenTask">
+          <form [formGroup]="editTaskForm">
+            <input class="field-add" formControlName="name" placeholder="Edycja zadania" />
+            <button class="button-add" (click)="editTask(editTaskForm)"><fa name="pencil"></fa></button>
+            <button class="button-add" (click)="deleteTask()"><fa name="trash"></fa></button>
+          </form>
+        </div>
+      </ng-container>
 
       <div class="tasks">
         <ul>
