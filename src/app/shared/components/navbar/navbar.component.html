@@ -1,10 +1,13 @@
 <div class="navbar">
 
   <div class="lists-anchors">
-    <div class="lists-anchors-main"><fa name="bars"></fa></div>
-    <div class="lists-anchors-archive"><fa name="archive"></fa></div>
+    <div  class="list-anchor"><fa [routerLink]="['/dashboard', {isArchive: false}]" routerLinkActive #rla="routerLinkActive" [ngClass]="rla.isActive && !isArchive ? 'stroke' : ''" name="bars"></fa></div>
+    <div class="list-anchor-left"><fa [routerLink]="['/dashboard', {isArchive: true}]" routerLinkActive #rlb="routerLinkActive" [ngClass]="rlb.isActive && isArchive ? 'stroke' : ''" name="archive"></fa></div>
   </div>
   <div class="title"> NGX - TODO </div>
-  <div class="user-anchor"><fa name="user-circle-o"></fa></div>
+  <div class="lists-anchors">
+    <div class="list-anchor-right"><fa (click)="logout()" name="power-off"></fa></div>
+    <div class="list-anchor"><fa [routerLink]="['/user-panel']" [routerLinkActive]="'stroke'" name="user-circle-o"></fa></div>
+  </div>
 
 </div>

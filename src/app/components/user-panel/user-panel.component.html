@@ -1,3 +1,11 @@
-<p>
-  user-panel works!
-</p>
+<app-navbar></app-navbar>
+
+<div class="block-info"> EDYCJA DANYCH UŻYTKOWNIKA </div>
+<div class="block-add">
+  <form *ngIf="form" [formGroup]="form">
+    <input class="field-add" type="text" placeholder="Nowy email" formControlName="email"/>
+    <input class="field-add" type="text" placeholder="Imię" formControlName="name"/>
+    <input class="field-add" type="text" placeholder="Nazwisko" formControlName="surname"/>
+    <button class="button-add" (click)="saveData(form)">ZAPISZ DANE</button>
+  </form>
+</div>

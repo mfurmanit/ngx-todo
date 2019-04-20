@@ -3,44 +3,68 @@
 <div class="blocks-wrapper">
 
     <div [style.width]="chosenList ? '40%' : '100%'" class="block-lists">
+      <div class="block-info" *ngIf="!chosenList"> Witaj w aplikacji - wybierz listę aby wyświetlić zadania! </div>
+      <div class="block-info" *ngIf="chosenList && showLists"> Wybierz inną listę lub dodaj nową! </div>
       <div class="block-add">
         <form *ngIf="listForm" [formGroup]="listForm">
             <input class="field-add" type="text" formControlName="name" placeholder="Wprowadź nazwę nowej listy" />
-            <button class="button-add" (click)="createList(listForm)" [disabled]="f.name.errors"> <fa name="plus-square"></fa> </button>
+            <button class="button-add" (click)="createList(listForm)"> <fa name="plus"></fa> </button>
         </form>
       </div>
       <div class="lists">
         <ul>
-          <li *ngFor="let list of (lists | async)"> <span (click)="loadChosenList(list)"> {{list?.name}} </span> </li>
+          <li *ngFor="let list of lists"> <span (click)="loadChosenList(list)"> {{list?.name}} </span> </li>
         </ul>
       </div>
     </div>
 
     <div *ngIf="chosenList" class="block-tasks">
-      <div class="block-add">
+      <div class="block-info" *ngIf="chosenList && !isArchive"> Oznacz zadanie lub edytuj listę! </div>
+      <div class="block-add" *ngIf="chosenList && !isArchive">
         <form *ngIf="chosenListForm" [formGroup]="chosenListForm">
           <input class="field-add" type="text" formControlName="name" placeholder="Lista" />
-            <button class="button-add" (click)="updateList(chosenListForm)"><fa name="pencil"></fa></button>
-            <button class="button-add" (click)="deleteList(chosenListForm)"><fa name="trash"></fa></button>
+            <button *ngIf="!isArchive" class="button-add" (click)="updateList(chosenListForm)"><fa name="pencil"></fa></button>
+            <button *ngIf="!isArchive" class="button-add" (click)="deleteList(chosenListForm)"><fa name="trash"></fa></button>
         </form>
       </div>
 
-      <div class="block-add">
+      <div class="block-add" *ngIf="!isArchive">
         <form *ngIf="taskForm && chosenList" [formGroup]="taskForm">
           <input class="field-add" formControlName="name" placeholder="Wprowadź nazwę nowego zadania" />
-            <button class="button-add" (click)="addTask(taskForm)"><fa name="plus-circle"></fa></button>
+            <button class="button-add" (click)="addTask(taskForm)"><fa name="plus"></fa></button>
+        </form>
+      </div>
+
+      <div class="block-info" *ngIf="!isArchive && chosenTask"> Edytuj wybrane zadanie! </div>
+      <div class="block-add" *ngIf="!isArchive && editTaskForm && chosenTask">
+        <form [formGroup]="editTaskForm">
+          <input class="field-add" formControlName="name" placeholder="Edycja zadania" />
+          <button class="button-add" (click)="editTask(editTaskForm)"><fa name="pencil"></fa></button>
+          <button class="button-add" (click)="deleteTask()"><fa name="trash"></fa></button>
         </form>
       </div>
 
       <div class="tasks">
         <ul>
-          <li *ngFor="let task of (tasks | async)">
-            <ng-container *ngIf="!task.isDone">
-              <div (mouseenter)="onMouseEnter($event, task, true)" (mouseleave)="onMouseLeave($event, task, true)" (click)="updateTask(task, true)" [ngClass]="task.isDone ? 'tick-full' : 'tick'" class="tick"></div>
-              <div (mouseenter)="onMouseEnter($event, task, false)" (mouseleave)="onMouseLeave($event, task, false)" (click)="updateTask(task, false)" [ngClass]="task.isPartiallyDone ? 'yellow-tick-full' : 'yellow-tick'" class="yellow-tick"></div>
-              <span>{{task.name}}</span>
+          <ng-container *ngIf="!isArchive; else archive;">
+            <ng-container *ngFor="let task of tasks">
+              <li *ngIf="!task.isDone">
+                  <div (mouseenter)="onMouseEnter($event, task, true)" (mouseleave)="onMouseLeave($event, task, true)" (click)="updateTask(task, true)" [ngClass]="task.isDone ? 'tick-full' : 'tick'" class="tick"></div>
+                  <div (mouseenter)="onMouseEnter($event, task, false)" (mouseleave)="onMouseLeave($event, task, false)" (click)="updateTask(task, false)" [ngClass]="task.isPartiallyDone ? 'yellow-tick-full' : 'yellow-tick'" class="yellow-tick"></div>
+                  <span (click)="initTaskEdition(task)">{{task.name}}</span>
+              </li>
             </ng-container>
-          </li>
+          </ng-container>
+
+          <ng-template #archive>
+            <ng-container *ngFor="let task of tasks">
+              <li>
+                  <div [ngClass]="task.isDone ? 'tick-full archive' : 'tick archive'" class="tick"></div>
+                  <div [ngClass]="task.isPartiallyDone ? 'yellow-tick-full archive' : 'yellow-tick archive'" class="yellow-tick"></div>
+                  <span [ngClass]="task.isDone ? 'task-archive-done' : 'task-archive'">{{task.name}}</span>
+              </li>
+            </ng-container>
+          </ng-template>
         </ul>
       </div>
     </div>

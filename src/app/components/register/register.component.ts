@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../shared/services/authentication.service';
+import { ListsService } from '../../shared/services/lists.service';
 
 @Component({
   selector: 'app-register',
@@ -16,13 +17,16 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private ls: ListsService) {
   }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      name: [''],
+      surname: ['']
     });
   }
 
@@ -35,7 +39,9 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.authenticationService.register({email: this.f.email.value, password: this.f.password.value}).then(() => this.router.navigate(['login']));
+    this.authenticationService.register({email: this.f.email.value, password: this.f.password.value}, this.f.name.value, this.f.surname.value).then(() => {
+      this.router.navigate(['login']);
+    });
   }
 
 }

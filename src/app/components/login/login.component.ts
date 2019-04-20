@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.authenticationService.login({email: this.f.username.value, password: this.f.password.value}).catch(error => console.log(error.code));
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['dashboard', {isArchive: false}]);
   }
 
 }

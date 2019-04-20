@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
+import { UserPanelComponent } from './components/user-panel/user-panel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -12,8 +13,14 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: HomeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {isArchive: false, showLists: true}
   },
+  {
+    path: 'user-panel',
+    component: UserPanelComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

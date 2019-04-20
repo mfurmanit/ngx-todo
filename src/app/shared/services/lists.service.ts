@@ -11,8 +11,8 @@ export class ListsService {
   constructor(private firestore: AngularFirestore) {
   }
 
-  getLists() {
-    return this.firestore.collection('lists').snapshotChanges().pipe(map(lists => {
+  getLists(userId: string) {
+    return this.firestore.doc(`users/${userId}`).collection('lists').snapshotChanges().pipe(map(lists => {
       return lists.map(list => {
         return {
           id: list.payload.doc.id,
@@ -22,19 +22,19 @@ export class ListsService {
     }));
   }
 
-  createList(list: List) {
+  createList(userId: string, list: List) {
     delete list.id;
-    return this.firestore.collection('lists').add(list);
+    return this.firestore.doc(`users/${userId}`).collection('lists').add(list);
   }
 
-  updateList(list: List) {
-    const id = list.id;
+  updateList(userId: string, list: List) {
+    const listId = list.id;
     delete list.id;
-    this.firestore.doc('lists/' + id).update(list);
+    this.firestore.doc(`users/${userId}/lists/${listId}`).update(list);
   }
 
-  deleteList(listId: string) {
-    this.firestore.doc('lists/' + listId).delete();
+  deleteList(userId: string, listId: string) {
+    this.firestore.doc(`users/${userId}/lists/${listId}`).delete();
   }
 
 }

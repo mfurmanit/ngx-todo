@@ -2,10 +2,10 @@
 
 <div class="login-page">
   <div class="form">
-    <form class="login-form" *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="login-form" *ngIf="loginForm" [formGroup]="loginForm">
       <input formControlName="username" type="text" placeholder="username"/>
       <input formControlName="password" type="password" placeholder="password"/>
-      <button>login</button>
+      <button (click)="onSubmit()">login</button>
       <p class="message">Jeśli nie masz konta <a href="#">kliknij tutaj</a> aby się zarejestrować! </p>
     </form>
   </div>

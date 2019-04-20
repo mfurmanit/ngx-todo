@@ -36,6 +36,7 @@ import { DialogComponent } from './shared/components/dialog/dialog.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFontAwesomeModule,

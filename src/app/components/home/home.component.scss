@@ -1,12 +1,12 @@
-
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .tick {
   user-select: none;
   margin: 0 5px;
   background: url("../../../assets/img/tick_border.png") no-repeat;
   background-size: cover;
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -16,19 +16,23 @@
   margin: 0 5px;
   background: url("../../../assets/img/tick.png") no-repeat;
   background-size: cover;
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
+
+  &.archive {
+    cursor: default;
+  }
 }
 
 .yellow-tick {
   user-select: none;
   background: url("../../../assets/img/tick_yellow_border.png") no-repeat;
   background-size: cover;
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -37,17 +41,21 @@
   user-select: none;
   background: url("../../../assets/img/tick_yellow.png") no-repeat;
   background-size: cover;
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
+
+  &.archive {
+    cursor: default;
+  }
 }
 
 .blocks-wrapper {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
 }
 
 .block-lists {
@@ -67,7 +75,7 @@
 }
 
 .block-add {
-  height: 40px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -76,11 +84,27 @@
   padding: 10px;
 }
 
+.block-info {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 16px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  color: #195d2e;
+}
+
 .lists {
   height: auto;
 
   li {
     text-transform: uppercase;
+    font-weight: bold;
   }
 }
 
@@ -99,13 +123,16 @@ ul {
 
 li {
   user-select: none;
-  width: 100%;
+  width: auto;
   height: auto;
   line-height: 50px;
   border-bottom: 1px solid #f1f1f1;
   font-family: "Roboto", sans-serif;
   color: black;
   word-wrap: break-word;
+  padding: 10px;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 li span {
@@ -114,40 +141,43 @@ li span {
 
 li span:hover {
   user-select: none;
-  text-decoration: underline;
   cursor: pointer;
 }
 
+.task-archive-done {
+  @extend .task-archive;
+  text-decoration: line-through;
+}
+
+.task-archive {
+  cursor: default !important;
+}
+
+i.fa {
+  line-height: 30px !important;
+  font-size: 20px;
+}
+
 fa {
-  line-height: 35px;
+  font-size: 32px;
 }
 
 .field-add {
-  padding: 10px 20px;
   border: 2px solid #25a75c;
   outline: #25a75c;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  font: normal 16px / normal Tahoma, Geneva, sans-serif;
+  font: normal 20px / normal Tahoma, Geneva, sans-serif;
   color: rgba(0, 0, 0, 1);
-  text-indent: 1px;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  word-spacing: 2px;
   background: rgba(252, 252, 252, 1);
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
-  width: 80%;
+  width: 90%;
   margin-right: 5px;
+  text-align: center;
 }
 
 .button-add {
   cursor: pointer;
   outline: none;
   min-width: 40px;
-  min-height: 40px;
   border: 2px solid #25a75c;
-  -webkit-border-radius: 10%;
-  border-radius: 10%;
   font: normal 26px / normal Tahoma, Geneva, sans-serif;
   color: #25a75c;
   background: rgba(255, 255, 255, 0.9);
@@ -155,13 +185,7 @@ fa {
 }
 
 .button-add:hover {
-  cursor: pointer;
-  outline: none;
-  min-width: 40px;
-  min-height: 40px;
-  -webkit-border-radius: 10%;
-  border-radius: 10%;
-  font: normal 26px / normal Tahoma, Geneva, sans-serif;
+  @extend .button-add;
   color: rgba(255, 255, 255, 0.9);
   background: #25a75c;
 }
