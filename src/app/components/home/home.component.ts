@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 import { ActivatedRoute } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -26,9 +27,11 @@ export class HomeComponent implements OnInit {
   lists: List[];
   tasks: Task[];
   userId: string;
-  isArchive: boolean;
+  isArchive: boolean = false;
   listsShown: boolean = true;
   tasksShown: boolean = true;
+
+  readonly subscriptions = new Subscription();
 
   constructor(private formBuilder: FormBuilder,
               private listService: ListsService,
@@ -46,7 +49,7 @@ export class HomeComponent implements OnInit {
     this.listForm = this.initListFormGroup();
     this.chosenListForm = this.initListFormGroup();
     this.taskForm = this.initTaskFormGroup();
-    this.listService.getLists(this.userId).subscribe(data => this.lists = data);
+    this.subscriptions.add(this.listService.getLists(this.userId).subscribe(data => this.lists = data));
   }
 
   hideLists(): void {
@@ -61,59 +64,63 @@ export class HomeComponent implements OnInit {
     this.chosenListForm = this.initListFormGroup();
     this.chosenListForm.patchValue(list);
     this.chosenList = list;
-    this.taskService.getTasks(this.userId, list.id).subscribe(data => this.tasks = data);
+    this.subscriptions.add(this.taskService.getTasks(this.userId, list.id).subscribe(data => this.tasks = data));
+  }
+
+  refreshList(): void {
+    if (!isNullOrUndefined(this.lists) && this.lists.length > 0) {
+      this.loadChosenList(this.lists[0]);
+    } else {
+      this.chosenList = null;
+    }
   }
 
   createList(form: FormGroup): void {
     this.listForm = this.initListFormGroup();
     if (form.valid) {
-      this.listService.createList(this.userId, form.value);
-      this.snackBar.show(this.translate.instant('messages.listCreated'));
+      this.subscriptions.add(this.listService.createList(this.userId, form.value)
+        .then(() => this.snackBar.show('messages.listCreated'))
+        .catch(() => this.snackBar.show('messages.listNotCreated')));
     } else {
-      if (isNullOrUndefined(form.value.name) || form.value.name === '') {
-        this.snackBar.show('Nazwa listy nie może być pusta!');
-      } else {
-        this.snackBar.show('Wprowadzone dane są niepoprawne!');
-      }
+      this.showError(form, 'list', 'Created');
     }
   }
 
   updateList(form: FormGroup): void {
     if (form.valid) {
-      this.listService.updateList(this.userId, form.value);
-      this.snackBar.show('Edycja listy przebiegła pomyślnie!');
+      this.subscriptions.add(this.listService.updateList(this.userId, form.value)
+        .then(() => this.snackBar.show('messages.listEdited'))
+        .catch(() => this.snackBar.show('messages.listNotEdited')));
     } else {
-      if (isNullOrUndefined(form.value.name) || form.value.name === '') {
-        this.snackBar.show('Nazwa listy nie może być pusta!');
-      } else {
-        this.snackBar.show('Wprowadzone dane są niepoprawne!');
-      }
+      this.showError(form, 'list', 'Edited');
     }
   }
 
   deleteList(form: FormGroup): void {
-    this.listService.deleteList(this.userId, form.value.id).then(() => {
-      this.lists = this.lists.filter(value => value.id !== form.value.id);
-      this.snackBar.show('Wybrana lista została usunięta pomyślnie!');
-      if (!isNullOrUndefined(this.lists) && this.lists.length > 0) {
-        this.loadChosenList(this.lists[0]);
-      } else {
-        this.chosenList = null;
-      }
-    });
+    this.subscriptions.add(this.listService.deleteList(this.userId, form.value.id)
+      .then(() => {
+        this.lists = this.lists.filter(value => value.id !== form.value.id);
+        this.refreshList();
+        this.snackBar.show('messages.listDeleted');
+      }).catch(() => this.snackBar.show('messages.listNotDeleted')));
+  }
+
+  private showError(form: FormGroup, prefix: string, suffix: string): void {
+    if (isNullOrUndefined(form.value.name) || form.value.name === '') {
+      this.snackBar.show(`messages.${prefix}NameEmpty`);
+    } else {
+      this.snackBar.show(`messages.${prefix}Not${suffix}`);
+    }
   }
 
   addTask(form: FormGroup): void {
     this.taskForm = this.initTaskFormGroup();
     if (form.valid) {
-      this.taskService.createTask(this.userId, this.chosenList.id, form.value);
-      this.snackBar.show('Nowe zadanie zostało dodane pomyślnie!');
+      this.subscriptions.add(this.taskService.createTask(this.userId, this.chosenList.id, form.value)
+        .then(() => this.snackBar.show('messages.taskCreated'))
+        .catch(() => this.snackBar.show('messages.taskNotCreated')));
     } else {
-      if (isNullOrUndefined(form.value.name) || form.value.name === '') {
-        this.snackBar.show('Nazwa zadania nie może być pusta!');
-      } else {
-        this.snackBar.show('Wprowadzone dane są niepoprawne!');
-      }
+      this.showError(form, 'task', 'Created');
     }
   }
 
@@ -124,15 +131,15 @@ export class HomeComponent implements OnInit {
       task.isPartiallyDone = !task.isPartiallyDone;
     }
 
-    this.taskService.updateTask(this.userId, this.chosenList.id, task);
-
-    if (task.isDone) {
-      this.snackBar.show('Zadanie zostało oznaczone jako wykonane i przeniesione do archiwum!');
-    } else if (task.isPartiallyDone) {
-      this.snackBar.show('Zadanie zostało oznaczone jako częściowo wykonane!');
-    } else if (!task.isPartiallyDone) {
-      this.snackBar.show('Cofnięto częściowe wykonanie zadania!');
-    }
+    this.subscriptions.add(this.taskService.updateTask(this.userId, this.chosenList.id, task).then(() => {
+      if (task.isDone) {
+        this.snackBar.show('messages.taskDone');
+      } else if (task.isPartiallyDone) {
+        this.snackBar.show('messages.taskPartiallyDone');
+      } else if (!task.isPartiallyDone) {
+        this.snackBar.show('messages.taskUndone');
+      }
+    }).catch(() => this.snackBar.show('messages.taskNotMarked')));
   }
 
   editTask(form: FormGroup): void {
@@ -140,21 +147,20 @@ export class HomeComponent implements OnInit {
     task.name = form.value.name;
 
     if (form.valid) {
-      this.taskService.updateTask(this.userId, this.chosenList.id, task);
-      this.snackBar.show('Nazwa zadania została pomyślnie zaktualizowana!');
+      this.subscriptions.add(this.taskService.updateTask(this.userId, this.chosenList.id, task)
+        .then(() => this.snackBar.show('messages.taskEdited'))
+        .catch(() => this.snackBar.show('messages.taskNotEdited')));
     } else {
-      if (isNullOrUndefined(form.value.name) || form.value.name === '') {
-        this.snackBar.show('Nazwa zadania nie może być pusta!');
-      } else {
-        this.snackBar.show('Wprowadzone dane są niepoprawne!');
-      }
+      this.showError(form, 'task', 'Edited');
     }
   }
 
   deleteTask(): void {
-    this.taskService.deleteTask(this.userId, this.chosenList.id, this.chosenTask.id);
-    this.snackBar.show('Zadanie zostało usunięte z listy!');
-    this.chosenTask = null;
+    this.subscriptions.add(this.taskService.deleteTask(this.userId, this.chosenList.id, this.chosenTask.id)
+      .then(() => {
+        this.chosenTask = null;
+        this.snackBar.show('messages.taskDeleted');
+      }).catch(() => this.snackBar.show('messages.taskNotDeleted')));
   }
 
   onMouseEnter(event, task: Task, doneIcon: boolean): void {
@@ -199,7 +205,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  initSimpleTaskFormGroup(task: Task): FormGroup {
+  private initSimpleTaskFormGroup(task: Task): FormGroup {
     return this.formBuilder.group({
       id: [task.id],
       name: [task.name, Validators.required]

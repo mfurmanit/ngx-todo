@@ -7,7 +7,6 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppComponent } from './app.component';
-import { UserService } from './shared/services/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { environment } from 'src/environments/environment';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
@@ -20,10 +19,10 @@ import { SnackbarService } from './shared/services/snackbar.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { UserPanelComponent } from './components/user-panel/user-panel.component';
-import { DialogComponent } from './shared/components/dialog/dialog.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TasksService } from './shared/services/tasks.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -38,14 +37,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegisterComponent,
     SnackbarComponent,
     NavbarComponent,
-    UserPanelComponent,
-    DialogComponent
+    UserPanelComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     AngularFontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
@@ -59,7 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [UserService, AngularFirestore, ListsService, SnackbarService],
+  providers: [AngularFirestore, ListsService, TasksService, SnackbarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

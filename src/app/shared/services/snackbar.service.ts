@@ -9,7 +9,8 @@ export class SnackbarService {
   private snackbarSubject = new Subject<any>();
   public snackbarState = this.snackbarSubject.asObservable();
 
-  constructor() { }
+  constructor() {
+  }
 
   show(message: string, type?: string) {
     this.snackbarSubject.next({

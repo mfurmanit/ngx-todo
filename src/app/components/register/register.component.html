@@ -2,12 +2,12 @@
 
 <div class="login-page">
   <div class="form">
-    <form class="register-form" *ngIf="registerForm" [formGroup]="registerForm">
+    <form class="register-form" *ngIf="form" [formGroup]="form">
       <input type="text" placeholder="Email" formControlName="email"/>
       <input type="password" placeholder="Hasło" formControlName="password"/>
       <input type="text" placeholder="Imię" formControlName="name"/>
       <input type="text" placeholder="Nazwisko" formControlName="surname"/>
-      <button (click)="onSubmit()">create</button>
+      <button (click)="register(form)">create</button>
       <p class="message">Posiadasz już konto? <a href="#">Zaloguj się!</a></p>
     </form>
   </div>

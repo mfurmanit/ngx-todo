@@ -11,7 +11,7 @@ export class TasksService {
   constructor(private firestore: AngularFirestore) {
   }
 
-  getTasks(userId: string, listId: string) {
+  getTasks(userId: string, listId: string): any {
     return this.firestore.doc(`users/${userId}/lists/${listId}`).collection('tasks').snapshotChanges().pipe(map(tasks => {
       return tasks.map(task => {
         return {
@@ -22,7 +22,7 @@ export class TasksService {
     }));
   }
 
-  createTask(userId: string, listId: string, task: Task) {
+  createTask(userId: string, listId: string, task: Task): any {
     delete task.id;
     return this.firestore.doc(`users/${userId}/lists/${listId}`).collection('tasks').add(task);
   }
@@ -30,10 +30,10 @@ export class TasksService {
   updateTask(userId: string, listId: string, task: Task): any {
     const taskId = task.id;
     delete task.id;
-    this.firestore.doc(`users/${userId}/lists/${listId}/tasks/${taskId}`).update(task);
+    return this.firestore.doc(`users/${userId}/lists/${listId}/tasks/${taskId}`).update(task);
   }
 
-  deleteTask(userId: string, listId: string, taskId: string) {
-    this.firestore.doc(`users/${userId}/lists/${listId}/tasks/${taskId}`).delete();
+  deleteTask(userId: string, listId: string, taskId: string): any {
+    return this.firestore.doc(`users/${userId}/lists/${listId}/tasks/${taskId}`).delete();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SnackbarService } from '../../services/snackbar.service';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-snackbar',
@@ -35,7 +36,9 @@ export class SnackbarComponent implements OnInit, OnDestroy {
   private snackbarSubscription: Subscription;
   private timer;
 
-  constructor(private snackbarService: SnackbarService) {
+  constructor(private snackbarService: SnackbarService,
+              private translate: TranslateService) {
+    this.translate.setDefaultLang('pl');
   }
 
   ngOnInit() {
@@ -47,7 +50,7 @@ export class SnackbarComponent implements OnInit, OnDestroy {
           } else {
             this.type = 'success';
           }
-          this.message = state.message;
+          this.message = this.translate.instant(state.message);
           if (this.show && state.show) {
             this.show = false;
             setTimeout(() => {

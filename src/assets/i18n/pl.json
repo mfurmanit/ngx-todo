@@ -3,6 +3,39 @@
 
   },
   "messages": {
-    "listCreated": "Nowa lista została utworzona pomyślnie!"
+    "listCreated": "Nowa lista została utworzona pomyślnie.",
+    "listNotCreated": "Podczas tworzenia listy wystąpił problem - spróbuj ponownie za moment.",
+    "listNameEmpty": "Nazwa listy nie może być pusta.",
+    "listEdited": "Edycja listy przebiegła pomyślnie.",
+    "listNotEdited": "Podczas edycji listy wystąpił problem - spróbuj ponownie za moment.",
+    "listDeleted": "Wybrana lista została usunięta pomyślnie.",
+    "listNotDeleted": "Podczas usuwania listy wystąpił problem - spróbuj ponownie za moment.",
+
+    "taskCreated": "Nowe zadanie zostało dodane pomyślnie.",
+    "taskNotCreated": "Podczas tworzenia zadania wystąpił problem - spróbuj ponownie za moment.",
+    "taskNameEmpty": "Nazwa zadania nie może być pusta.",
+    "taskEdited": "Edycja zadania przebiegła pomyślnie.",
+    "taskNotEdited": "Podczas edycji zadania wystąpił problem - spróbuj ponownie za moment.",
+    "taskDeleted": "Wybrane zadanie zostało usunięte pomyślnie.",
+    "taskNotDeleted": "Podczas usuwania zadania wystąpił problem - spróbuj ponownie za moment.",
+
+    "taskDone": "Zadanie zostało oznaczone jako wykonane i przeniesione do archiwum.",
+    "taskPartiallyDone": "Zadanie zostało oznaczone jako częściowo wykonane.",
+    "taskUndone": "Cofnięto częściowe wykonanie zadania.",
+    "taskNotMarked": "Podczas zmioany oznaczenia zadania wystąpił problem - spróbuj ponownie za moment.",
+
+    "userCreated": "Nowe konto zostało utworzone pomyślnie.",
+    "userUpdated": "Edycja danych użytkownika przebiegła pomyślnie.",
+    "userNotCreated": "Podczas tworzenia konta użytkownika wystąpił problem - spróbuj ponownie za moment.",
+    "userNotUpdated": "Podczas edycji danych użytkownika wystąpił problem - spróbuj ponownie za moment.",
+    "userDataEmpty": "Żadna z danych użytkownika nie może być pusta.",
+    "userNotFound": "Wystąpił problem z pobraniem danych użytkownika lub użytkownik nie istnieje - spróbuj ponownie za moment.",
+
+    "wrongEmail": "Wprowadzono niepoprawny adres email - spróbuj ponownie za moment.",
+    "wrongPassword": "Wprowadzono niepoprawne hasło - spróbuj ponownie za moment.",
+    "tooManyRequests": "Wyczerpano limit prób logowania - spróbuj ponownie za moment.",
+
+    "logoutSuccess": "Zostałeś wylogowany.",
+    "logoutError": "Podczas próby wylogowania wystąpił problem - spróbuj ponownie za moment."
   }
 }
