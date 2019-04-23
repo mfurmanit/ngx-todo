@@ -34,8 +34,11 @@
     "wrongEmail": "Wprowadzono niepoprawny adres email - spróbuj ponownie za moment.",
     "wrongPassword": "Wprowadzono niepoprawne hasło - spróbuj ponownie za moment.",
     "tooManyRequests": "Wyczerpano limit prób logowania - spróbuj ponownie za moment.",
+    "emailInUse": "Wprowadzony adres email jest już przypisany do innego konta.",
+    "weakPassword": "Hasło powinno składać się z co najmniej 6 znaków.",
 
     "logoutSuccess": "Zostałeś wylogowany.",
-    "logoutError": "Podczas próby wylogowania wystąpił problem - spróbuj ponownie za moment."
+    "logoutError": "Podczas próby wylogowania wystąpił problem - spróbuj ponownie za moment.",
+    "loginError": "Podczas próby logowania wystąpił problem - spróbuj ponownie za moment."
   }
 }

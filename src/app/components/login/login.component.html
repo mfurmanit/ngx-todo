@@ -1,12 +1,13 @@
-<div class="header"><h1>Logowanie do aplikacji Ngx-Todo!</h1></div>
+<div class="header"><img style="width: 156px; height: 156px;" src="../../../assets/img/checklist.png"/> <h1>NGX-TODO</h1></div>
 
-<div class="login-page">
-  <div class="form">
-    <form class="login-form" *ngIf="form" [formGroup]="form">
-      <input formControlName="email" type="text" placeholder="email"/>
-      <input formControlName="password" type="password" placeholder="password"/>
-      <button (click)="login(form)">login</button>
-      <p class="message">Jeśli nie masz konta <a href="#">kliknij tutaj</a> aby się zarejestrować! </p>
+<div class="block-login">
+  <div class="login-form">
+    <div class="header-second"><h1>LOGOWANIE</h1></div>
+    <form *ngIf="form" [formGroup]="form">
+      <input class="field-add" formControlName="email" type="text" placeholder="Email"/>
+      <input class="field-add" formControlName="password" type="password" placeholder="Hasło"/>
+      <button class="button-add" (click)="login(form)">ZALOGUJ</button>
+      <p [routerLink]="['/register']" class="message">Jeśli nie masz konta kliknij aby się zarejestrować.</p>
     </form>
   </div>
 </div>

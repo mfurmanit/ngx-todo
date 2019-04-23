@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { isNullOrUndefined } from 'util';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               private router: Router,
               private authenticationService: AuthenticationService,
               private snackBar: SnackbarService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private spinner: SpinnerService) {
     this.translate.setDefaultLang('pl');
   }
 
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(form: FormGroup) {
+    this.spinner.show();
     if (form.valid) {
       this.subscriptions.add(this.authenticationService.login(form.value));
     } else {
@@ -50,6 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       } else {
         this.snackBar.show(`messages.userNotUpdated`);
       }
+      this.spinner.hide();
     }
   }
 

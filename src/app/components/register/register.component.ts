@@ -6,6 +6,7 @@ import { isNullOrUndefined } from 'util';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               private router: Router,
               private authenticationService: AuthenticationService,
               private snackBar: SnackbarService,
+              private spinner: SpinnerService,
               private translate: TranslateService) {
     this.translate.setDefaultLang('pl');
   }
@@ -41,6 +43,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register(form: FormGroup) {
+    this.spinner.show();
     if (form.valid) {
       this.subscriptions.add(this.authenticationService.register(form.value));
     } else {
@@ -52,6 +55,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       } else {
         this.snackBar.show(`messages.userNotUpdated`);
       }
+      this.spinner.hide();
     }
   }
 

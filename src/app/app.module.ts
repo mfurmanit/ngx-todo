@@ -23,6 +23,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TasksService } from './shared/services/tasks.service';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { SpinnerService } from './shared/services/spinner.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegisterComponent,
     SnackbarComponent,
     NavbarComponent,
-    UserPanelComponent
+    UserPanelComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [AngularFirestore, ListsService, TasksService, SnackbarService],
+  providers: [AngularFirestore, ListsService, TasksService, SnackbarService, SpinnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

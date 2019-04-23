@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
               private route: ActivatedRoute,
               private authService: AuthenticationService,
               private snackBar: SnackbarService,
+              private spinner: SpinnerService,
               private translate: TranslateService) {
     this.translate.setDefaultLang('pl');
   }
@@ -76,33 +78,39 @@ export class HomeComponent implements OnInit {
   }
 
   createList(form: FormGroup): void {
+    this.spinner.show();
     this.listForm = this.initListFormGroup();
     if (form.valid) {
       this.subscriptions.add(this.listService.createList(this.userId, form.value)
         .then(() => this.snackBar.show('messages.listCreated'))
-        .catch(() => this.snackBar.show('messages.listNotCreated')));
+        .catch(() => this.snackBar.show('messages.listNotCreated'))
+        .finally(() => this.spinner.hide()));
     } else {
       this.showError(form, 'list', 'Created');
     }
   }
 
   updateList(form: FormGroup): void {
+    this.spinner.show();
     if (form.valid) {
       this.subscriptions.add(this.listService.updateList(this.userId, form.value)
         .then(() => this.snackBar.show('messages.listEdited'))
-        .catch(() => this.snackBar.show('messages.listNotEdited')));
+        .catch(() => this.snackBar.show('messages.listNotEdited'))
+        .finally(() => this.spinner.hide()));
     } else {
       this.showError(form, 'list', 'Edited');
     }
   }
 
   deleteList(form: FormGroup): void {
+    this.spinner.show();
     this.subscriptions.add(this.listService.deleteList(this.userId, form.value.id)
       .then(() => {
         this.lists = this.lists.filter(value => value.id !== form.value.id);
         this.refreshList();
         this.snackBar.show('messages.listDeleted');
-      }).catch(() => this.snackBar.show('messages.listNotDeleted')));
+      }).catch(() => this.snackBar.show('messages.listNotDeleted'))
+      .finally(() => this.spinner.hide()));
   }
 
   private showError(form: FormGroup, prefix: string, suffix: string): void {
@@ -111,20 +119,25 @@ export class HomeComponent implements OnInit {
     } else {
       this.snackBar.show(`messages.${prefix}Not${suffix}`);
     }
+    this.spinner.hide();
   }
 
   addTask(form: FormGroup): void {
+    this.spinner.show();
     this.taskForm = this.initTaskFormGroup();
     if (form.valid) {
       this.subscriptions.add(this.taskService.createTask(this.userId, this.chosenList.id, form.value)
         .then(() => this.snackBar.show('messages.taskCreated'))
-        .catch(() => this.snackBar.show('messages.taskNotCreated')));
+        .catch(() => this.snackBar.show('messages.taskNotCreated'))
+        .finally(() => this.spinner.hide()));
     } else {
       this.showError(form, 'task', 'Created');
     }
   }
 
   updateTask(task: Task, doneIcon: boolean): void {
+    this.spinner.show();
+
     if (doneIcon) {
       task.isDone = !task.isDone;
     } else {
@@ -139,28 +152,35 @@ export class HomeComponent implements OnInit {
       } else if (!task.isPartiallyDone) {
         this.snackBar.show('messages.taskUndone');
       }
-    }).catch(() => this.snackBar.show('messages.taskNotMarked')));
+    }).catch(() => this.snackBar.show('messages.taskNotMarked'))
+      .finally(() => this.spinner.hide()));
   }
 
   editTask(form: FormGroup): void {
+    this.spinner.show();
+
     const task = this.chosenTask;
     task.name = form.value.name;
 
     if (form.valid) {
       this.subscriptions.add(this.taskService.updateTask(this.userId, this.chosenList.id, task)
         .then(() => this.snackBar.show('messages.taskEdited'))
-        .catch(() => this.snackBar.show('messages.taskNotEdited')));
+        .catch(() => this.snackBar.show('messages.taskNotEdited'))
+        .finally(() => this.spinner.hide()));
     } else {
       this.showError(form, 'task', 'Edited');
     }
   }
 
   deleteTask(): void {
+    this.spinner.show();
     this.subscriptions.add(this.taskService.deleteTask(this.userId, this.chosenList.id, this.chosenTask.id)
       .then(() => {
+        this.tasks = this.tasks.filter(value => value.id !== this.chosenTask.id);
         this.chosenTask = null;
         this.snackBar.show('messages.taskDeleted');
-      }).catch(() => this.snackBar.show('messages.taskNotDeleted')));
+      }).catch(() => this.snackBar.show('messages.taskNotDeleted'))
+      .finally(() => this.spinner.hide()));
   }
 
   onMouseEnter(event, task: Task, doneIcon: boolean): void {
@@ -185,9 +205,9 @@ export class HomeComponent implements OnInit {
   }
 
   private subscribeToRouteParams(): void {
-    this.route.params.subscribe(({isArchive}) => {
+    this.subscriptions.add(this.route.params.subscribe(({isArchive}) => {
       this.isArchive = JSON.parse(isArchive);
-    });
+    }));
   }
 
   private initListFormGroup(): FormGroup {

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { isNullOrUndefined } from 'util';
 import { TranslateService } from '@ngx-translate/core';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 @Component({
   selector: 'app-user-panel',
@@ -21,6 +22,7 @@ export class UserPanelComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder,
               private authService: AuthenticationService,
               private snackBar: SnackbarService,
+              private spinner: SpinnerService,
               private translate: TranslateService) {
     this.translate.setDefaultLang('pl');
   }
@@ -37,6 +39,7 @@ export class UserPanelComponent implements OnInit, OnDestroy {
   }
 
   saveData(form: FormGroup): void {
+    this.spinner.show();
     if (form.valid) {
       this.subscriptions.add(this.authService.saveUserInfo(this.userId, form.value));
     } else {
@@ -47,6 +50,7 @@ export class UserPanelComponent implements OnInit, OnDestroy {
       } else {
         this.snackBar.show(`messages.userNotUpdated`);
       }
+      this.spinner.hide();
     }
   }
 

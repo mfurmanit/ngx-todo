@@ -6,6 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SnackbarService } from './snackbar.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { SpinnerService } from './spinner.service';
 
 export interface Credentials {
   email: string;
@@ -27,7 +29,10 @@ export class AuthenticationService {
   constructor(private fireAuth: AngularFireAuth,
               private firestore: AngularFirestore,
               private router: Router,
-              private snackBar: SnackbarService) {
+              private snackBar: SnackbarService,
+              private spinner: SpinnerService,
+              private translate: TranslateService) {
+    this.translate.setDefaultLang('pl');
   }
 
   get user(): User | null {
@@ -43,7 +48,9 @@ export class AuthenticationService {
       .then(() => this.firestore.collection('users').doc(userId).update(userInfo)
         .then(() => this.snackBar.show('messages.userUpdated')))
       .catch(() => this.snackBar.show('messages.userNotUpdated'))
-      .catch(() => this.snackBar.show('messages.userNotUpdated'));
+      .finally(() => this.spinner.hide())
+      .catch(() => this.snackBar.show('messages.userNotUpdated'))
+      .finally(() => this.spinner.hide());
   }
 
   login(credentials: Credentials) {
@@ -57,8 +64,10 @@ export class AuthenticationService {
             this.snackBar.show('messages.wrongPassword');
           } else if (error.code === 'auth/too-many-requests') {
             this.snackBar.show('messages.tooManyRequests');
+          } else {
+            this.snackBar.show('messages.loginError');
           }
-        });
+        }).finally(() => this.spinner.hide());
     });
   }
 
@@ -70,8 +79,17 @@ export class AuthenticationService {
           this.router.navigate(['login']);
           this.snackBar.show('messages.userCreated');
         })
-        .catch(() => this.snackBar.show('messages.userNotCreated'));
-    }).catch(() => this.snackBar.show('messages.userNotCreated'));
+        .catch(() => this.snackBar.show('messages.userNotCreated'))
+        .finally(() => this.spinner.hide());
+    }).catch(error => {
+      if (error.code === 'auth/email-already-in-use') {
+        this.snackBar.show('messages.emailInUse');
+      } else if (error.code === 'auth/weak-password') {
+        this.snackBar.show('messages.weakPassword');
+      } else {
+        this.snackBar.show('messages.userNotCreated');
+      }
+    }).finally(() => this.spinner.hide());
   }
 
   logout(): any {
