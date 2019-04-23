@@ -1,3 +1,70 @@
 {
+  "common": {
+    "header": "Ngx-todo",
 
+    "welcomeTitle": "Welcome to the application - select a list to view the tasks!",
+    "listTitle": "Choose a different list or add a new one!",
+    "taskTitle": "Mark task or edit list!",
+    "taskEditTitle": "Edit selected task!",
+
+    "listName": "Enter the name of the new list",
+    "listEditName": "Edit the name of the selected list",
+    "taskName": "Enter the name of the new task",
+    "taskEditName": "Edit the name of the selected task",
+
+    "loginTitle": "Login",
+    "registerTitle": "Registration",
+    "loginInfo": "You already have an account? Log in!",
+    "registerInfo": "If you do not have an account, click to register!",
+
+    "login": "Login",
+    "register": "Create an account",
+    "saveData": "Save data",
+    "email": "Email",
+    "name": "First name",
+    "surname": "Surname",
+    "password": "Password"
+  },
+  "messages": {
+    "listCreated": "A new list has been successfully created.",
+    "listNotCreated": "There was a problem creating the list - try again in a moment.",
+    "listNameEmpty": "The list name can not be empty.",
+    "listEdited": "List editing was successful.",
+    "listNotEdited": "There was a problem editing the list - try again in a moment.",
+    "listDeleted": "The selected list has been deleted successfully.",
+    "listNotDeleted": "There was a problem removing the list - try again in a moment.",
+
+    "taskCreated": "The new task has been successfully added.",
+    "taskNotCreated": "There was a problem creating the task - please try again in a moment.",
+    "taskNameEmpty": "The task name can not be empty.",
+    "taskEdited": "The task edition was successful.",
+    "taskNotEdited": "There was a problem editing the task - try again in a moment.",
+    "taskDeleted": "The selected task has been deleted successfully.",
+    "taskNotDeleted": "There was a problem removing the task - please try again in a moment.",
+
+    "taskDone": "The task has been marked as done and moved to the archive.",
+    "taskPartiallyDone": "The task has been marked as partially completed.",
+    "taskUndone": "Partial task execution has been undone.",
+    "taskNotMarked": "There was a problem changing the task designation - try again in a moment.",
+
+    "userCreated": "The new account has been successfully created.",
+    "userUpdated": "Editing user data was successful.",
+    "userNotCreated": "There was a problem creating your user account - please try again in a moment.",
+    "userNotUpdated": "There was a problem editing user data - try again in a moment.",
+    "userDataEmpty": "None of the user's data can be empty.",
+    "userDataNotFound": "There was a problem with downloading user data or the user does not exist - try again in a moment.",
+
+    "wrongEmail": "An incorrect email address has been entered.",
+    "wrongPassword": "An incorrect password has been entered.",
+    "tooManyRequests": "Login limit has been depleted - try again in a moment.",
+    "userNotFound": "Wrong login details have been entered - the given user does not exist.",
+    "emailInUse": "The email address entered is already assigned to another account.",
+    "weakPassword": "The password should be at least 6 characters long.",
+
+    "logoutSuccess": "You have been logged out.",
+    "logoutError": "There was a problem trying to logout - try again in a moment.",
+    "loginError": "There was a problem trying to login - try again in a moment.",
+
+    "snackbarError": "There was an error showing the message - please try again in a moment or contact the administrator."
+  }
 }

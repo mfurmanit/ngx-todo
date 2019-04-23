@@ -57,4 +57,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+  }
+
 }

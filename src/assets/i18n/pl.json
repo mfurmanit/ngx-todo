@@ -8,14 +8,14 @@
     "taskEditTitle": "Edytuj wybrane zadanie!",
 
     "listName": "Wprowadź nazwę nowej listy",
-    "listEditName": "Edycja nazwy wybranej listy",
+    "listEditName": "Edytuj nazwę wybranej listy",
     "taskName": "Wprowadź nazwę nowego zadania",
-    "taskEditName": "Edycja nazwy wybranego zadania",
+    "taskEditName": "Edytuj nazwę wybranego zadania",
 
     "loginTitle": "Logowanie",
     "registerTitle": "Rejestracja",
-    "loginInfo": "Posiadasz już konto? Zaloguj się.",
-    "registerInfo": "Jeśli nie masz konta kliknij aby się zarejestrować.",
+    "loginInfo": "Posiadasz już konto? Zaloguj się!",
+    "registerInfo": "Jeśli nie masz konta, kliknij aby się zarejestrować!",
 
     "login": "Zaloguj",
     "register": "Utwórz konto",
@@ -24,7 +24,6 @@
     "name": "Imię",
     "surname": "Nazwisko",
     "password": "Hasło"
-
   },
   "messages": {
     "listCreated": "Nowa lista została utworzona pomyślnie.",
@@ -46,7 +45,7 @@
     "taskDone": "Zadanie zostało oznaczone jako wykonane i przeniesione do archiwum.",
     "taskPartiallyDone": "Zadanie zostało oznaczone jako częściowo wykonane.",
     "taskUndone": "Cofnięto częściowe wykonanie zadania.",
-    "taskNotMarked": "Podczas zmioany oznaczenia zadania wystąpił problem - spróbuj ponownie za moment.",
+    "taskNotMarked": "Podczas zmiany oznaczenia zadania wystąpił problem - spróbuj ponownie za moment.",
 
     "userCreated": "Nowe konto zostało utworzone pomyślnie.",
     "userUpdated": "Edycja danych użytkownika przebiegła pomyślnie.",
@@ -55,10 +54,10 @@
     "userDataEmpty": "Żadna z danych użytkownika nie może być pusta.",
     "userDataNotFound": "Wystąpił problem z pobraniem danych użytkownika lub użytkownik nie istnieje - spróbuj ponownie za moment.",
 
-    "wrongEmail": "Wprowadzono niepoprawny adres email - spróbuj ponownie za moment.",
-    "wrongPassword": "Wprowadzono niepoprawne hasło - spróbuj ponownie za moment.",
+    "wrongEmail": "Wprowadzono niepoprawny adres email.",
+    "wrongPassword": "Wprowadzono niepoprawne hasło.",
     "tooManyRequests": "Wyczerpano limit prób logowania - spróbuj ponownie za moment.",
-    "userNotFound": "Wprowadzone dane są nieprawidłowe - użytkownik nie istnieje.",
+    "userNotFound": "Wprowadzono błędne dane logowania - podany użytkownik nie istnieje.",
     "emailInUse": "Wprowadzony adres email jest już przypisany do innego konta.",
     "weakPassword": "Hasło powinno składać się z co najmniej 6 znaków.",
 
@@ -66,6 +65,6 @@
     "logoutError": "Podczas próby wylogowania wystąpił problem - spróbuj ponownie za moment.",
     "loginError": "Podczas próby logowania wystąpił problem - spróbuj ponownie za moment.",
 
-    "snackbarError": "Wystąpił błąd przy wyświetleniu wiadomości - spróbuj ponownie za moment."
+    "snackbarError": "Wystąpił błąd przy wyświetleniu wiadomości - spróbuj ponownie za moment lub skontaktuj się z administratorem."
   }
 }

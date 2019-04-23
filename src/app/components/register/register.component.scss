@@ -70,6 +70,34 @@
   border: 2px solid #FFFFFF;
 }
 
+.block-language {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.button-lang {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  outline: 0;
+  background: #25a75c !important;
+  width: 20%;
+  padding: 18px;
+  color: #FFFFFF;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 2px solid #FFFFFF;
+}
+
+.button-lang:hover {
+  @extend .button-lang;
+  color: #25a75c;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid #25a75c;
+}
+
 .button-add:hover {
   @extend .button-add;
   color: #25a75c;
