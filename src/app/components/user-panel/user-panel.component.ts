@@ -31,7 +31,7 @@ export class UserPanelComponent implements OnInit, OnDestroy {
     this.initFormGroup();
     this.userId = this.authService.user.uid;
     this.subscriptions.add(this.authService.getUserInfo(this.userId)
-      .subscribe(user => user.exists ? this.form.patchValue(user.data()) : this.snackBar.show('messages.userNotFound')));
+      .subscribe(user => user.exists ? this.form.patchValue(user.data()) : this.snackBar.show('messages.userDataNotFound')));
   }
 
   ngOnDestroy(): void {

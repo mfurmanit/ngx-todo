@@ -64,6 +64,8 @@ export class AuthenticationService {
             this.snackBar.show('messages.wrongPassword');
           } else if (error.code === 'auth/too-many-requests') {
             this.snackBar.show('messages.tooManyRequests');
+          } else if (error.code === 'auth/user-not-found') {
+            this.snackBar.show('messages.userNotFound');
           } else {
             this.snackBar.show('messages.loginError');
           }

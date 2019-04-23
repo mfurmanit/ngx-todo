@@ -1,5 +1,29 @@
 {
   "common": {
+    "header": "Ngx-todo",
+
+    "welcomeTitle": "Witaj w aplikacji - wybierz listę aby wyświetlić zadania!",
+    "listTitle": "Wybierz inną listę lub dodaj nową!",
+    "taskTitle": "Oznacz zadanie lub edytuj listę!",
+    "taskEditTitle": "Edytuj wybrane zadanie!",
+
+    "listName": "Wprowadź nazwę nowej listy",
+    "listEditName": "Edycja nazwy wybranej listy",
+    "taskName": "Wprowadź nazwę nowego zadania",
+    "taskEditName": "Edycja nazwy wybranego zadania",
+
+    "loginTitle": "Logowanie",
+    "registerTitle": "Rejestracja",
+    "loginInfo": "Posiadasz już konto? Zaloguj się.",
+    "registerInfo": "Jeśli nie masz konta kliknij aby się zarejestrować.",
+
+    "login": "Zaloguj",
+    "register": "Utwórz konto",
+    "saveData": "Zapisz dane",
+    "email": "Email",
+    "name": "Imię",
+    "surname": "Nazwisko",
+    "password": "Hasło"
 
   },
   "messages": {
@@ -29,16 +53,19 @@
     "userNotCreated": "Podczas tworzenia konta użytkownika wystąpił problem - spróbuj ponownie za moment.",
     "userNotUpdated": "Podczas edycji danych użytkownika wystąpił problem - spróbuj ponownie za moment.",
     "userDataEmpty": "Żadna z danych użytkownika nie może być pusta.",
-    "userNotFound": "Wystąpił problem z pobraniem danych użytkownika lub użytkownik nie istnieje - spróbuj ponownie za moment.",
+    "userDataNotFound": "Wystąpił problem z pobraniem danych użytkownika lub użytkownik nie istnieje - spróbuj ponownie za moment.",
 
     "wrongEmail": "Wprowadzono niepoprawny adres email - spróbuj ponownie za moment.",
     "wrongPassword": "Wprowadzono niepoprawne hasło - spróbuj ponownie za moment.",
     "tooManyRequests": "Wyczerpano limit prób logowania - spróbuj ponownie za moment.",
+    "userNotFound": "Wprowadzone dane są nieprawidłowe - użytkownik nie istnieje.",
     "emailInUse": "Wprowadzony adres email jest już przypisany do innego konta.",
     "weakPassword": "Hasło powinno składać się z co najmniej 6 znaków.",
 
     "logoutSuccess": "Zostałeś wylogowany.",
     "logoutError": "Podczas próby wylogowania wystąpił problem - spróbuj ponownie za moment.",
-    "loginError": "Podczas próby logowania wystąpił problem - spróbuj ponownie za moment."
+    "loginError": "Podczas próby logowania wystąpił problem - spróbuj ponownie za moment.",
+
+    "snackbarError": "Wystąpił błąd przy wyświetleniu wiadomości - spróbuj ponownie za moment."
   }
 }

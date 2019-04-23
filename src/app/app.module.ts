@@ -25,6 +25,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TasksService } from './shared/services/tasks.service';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerService } from './shared/services/spinner.service';
+import { CapitalizePipe } from './shared/pipes/capitalize';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -40,7 +41,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SnackbarComponent,
     NavbarComponent,
     UserPanelComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     })
   ],
-  providers: [AngularFirestore, ListsService, TasksService, SnackbarService, SpinnerService],
+  providers: [AngularFirestore, ListsService, TasksService, SnackbarService, SpinnerService, CapitalizePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

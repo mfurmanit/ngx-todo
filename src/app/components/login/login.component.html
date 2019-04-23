@@ -1,13 +1,13 @@
-<div class="header"><img style="width: 156px; height: 156px;" src="../../../assets/img/checklist.png"/> <h1>NGX-TODO</h1></div>
+<div class="header"><img style="width: 156px; height: 156px;" src="../../../assets/img/checklist.png"/> <h1>{{'common.header' | translate | uppercase}}</h1></div>
 
 <div class="block-login">
   <div class="login-form">
-    <div class="header-second"><h1>LOGOWANIE</h1></div>
+    <div class="header-second"><h1>{{'common.loginTitle' | translate | uppercase}}</h1></div>
     <form *ngIf="form" [formGroup]="form">
-      <input class="field-add" formControlName="email" type="text" placeholder="Email"/>
-      <input class="field-add" formControlName="password" type="password" placeholder="Hasło"/>
-      <button class="button-add" (click)="login(form)">ZALOGUJ</button>
-      <p [routerLink]="['/register']" class="message">Jeśli nie masz konta kliknij aby się zarejestrować.</p>
+      <input class="field-add" formControlName="email" type="text" placeholder="{{'common.email' | translate | capitalize}}"/>
+      <input class="field-add" formControlName="password" type="password" placeholder="{{'common.password' | translate | capitalize}}"/>
+      <button class="button-add" (click)="login(form)"> {{'common.login' | translate | uppercase}} </button>
+      <p [routerLink]="['/register']" class="message"> {{'common.registerInfo' | translate | capitalize}} </p>
     </form>
   </div>
 </div>

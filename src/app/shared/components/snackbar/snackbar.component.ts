@@ -31,7 +31,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SnackbarComponent implements OnInit, OnDestroy {
 
   private show = false;
-  private message = 'Wystąpił błąd przy wyświetleniu wiadomości, skontaktuj się z administratorem!';
+  private message = this.translate.instant('messages.snackbarError');
   private type = 'success';
   private snackbarSubscription: Subscription;
   private timer;
