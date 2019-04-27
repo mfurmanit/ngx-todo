@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.subscriptions.add(this.authService.logout()
       .then(() => this.snackBar.show('messages.logoutSuccess'))
-      .catch(() => this.snackBar.show('messages.logoutError'))
+      .catch(() => this.snackBar.show('messages.logoutError', 'danger'))
       .finally(() => this.spinner.hide()));
   }
 

@@ -6,6 +6,8 @@
     "listTitle": "Wybierz inną listę lub dodaj nową!",
     "taskTitle": "Oznacz zadanie lub edytuj listę!",
     "taskEditTitle": "Edytuj wybrane zadanie!",
+    "userPanelTitle": "Edycja danych użytkownika",
+    "languageTitle": "Zmiana języka",
 
     "listName": "Wprowadź nazwę nowej listy",
     "listEditName": "Edytuj nazwę wybranej listy",
@@ -23,7 +25,10 @@
     "email": "Email",
     "name": "Imię",
     "surname": "Nazwisko",
-    "password": "Hasło"
+    "password": "Hasło",
+
+    "pl": "pl",
+    "en": "en"
   },
   "messages": {
     "listCreated": "Nowa lista została utworzona pomyślnie.",

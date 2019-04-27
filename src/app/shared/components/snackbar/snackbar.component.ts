@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { SnackbarService } from '../../services/snackbar.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TranslateService } from '@ngx-translate/core';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-snackbar',
@@ -11,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   animations: [
     trigger('state', [
       transition(':enter', [
-        style({ bottom: '-100px', transform: 'translate(-50%, 0%) scale(0.3)' }),
+        style({bottom: '-100px', transform: 'translate(-50%, 0%) scale(0.3)'}),
         animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({
           transform: 'translate(-50%, 0%) scale(1)',
           opacity: 1,
@@ -30,9 +31,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SnackbarComponent implements OnInit, OnDestroy {
 
-  private show = false;
-  private message = this.translate.instant('messages.snackbarError');
-  private type = 'success';
+  private show: boolean = false;
+  private message: string = '';
+  private type: string = 'success';
   private snackbarSubscription: Subscription;
   private timer;
 
@@ -42,27 +43,28 @@ export class SnackbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.message = this.translate.instant('messages.snackbarError');
     this.snackbarSubscription = this.snackbarService.snackbarState
       .subscribe(
         (state) => {
-          if (state.type) {
-            this.type = state.type;
-          } else {
-            this.type = 'success';
+          if (!isNullOrUndefined(state)) {
+            this.message = this.translate.instant(state.message);
+            state.type ? this.type = state.type : this.type = 'success';
+
+            if (this.show && state.show) {
+              this.show = false;
+              setTimeout(() => {
+                this.show = true;
+              }, 50);
+              clearTimeout(this.timer);
+            } else {
+              this.show = state.show;
+            }
+
+            this.timer = setTimeout(() => {
+              this.show = false;
+            }, 3000);
           }
-          this.message = this.translate.instant(state.message);
-          if (this.show && state.show) {
-            this.show = false;
-            setTimeout(() => {
-              this.show = true;
-            }, 50);
-            clearTimeout(this.timer);
-          } else {
-            this.show = state.show;
-          }
-          this.timer = setTimeout(() => {
-            this.show = false;
-          }, 3000);
         });
   }
 

@@ -1,5 +1,6 @@
+@import '../../../../shared.scss';
+
 .snackbar-wrap {
-  font-family: "Roboto", sans-serif;
   font-size: 18px;
   position: fixed;
   bottom: 50px;
@@ -11,19 +12,19 @@
   transform: translate(-50%, 0%);
 
   &.success {
-    background: #2ecc71;
-    border: solid 2px #25a75c;
+    background: $color-primary;
+    border: solid 2px $color-secondary
   }
 
   &.danger {
-    background: rgb(173, 35, 0);
+    background: $color-danger;
   }
 
   .snackbar-text {
     text-align: center;
     font-size: 1.3em;
     font-weight: bold;
-    color: #fcfcfc;
+    color: $color-white;
     margin: 0;
   }
 }

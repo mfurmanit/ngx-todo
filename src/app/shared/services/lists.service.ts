@@ -12,7 +12,7 @@ export class ListsService {
   }
 
   getLists(userId: string): any {
-    return this.firestore.doc(`users/${userId}`).collection('lists').snapshotChanges().pipe(map(lists => {
+    return this.firestore.doc(this.getUserUrl(userId)).collection('lists').snapshotChanges().pipe(map(lists => {
       return lists.map(list => {
         return {
           id: list.payload.doc.id,
@@ -24,17 +24,25 @@ export class ListsService {
 
   createList(userId: string, list: List): any {
     delete list.id;
-    return this.firestore.doc(`users/${userId}`).collection('lists').add(list);
+    return this.firestore.doc(this.getUserUrl(userId)).collection('lists').add(list);
   }
 
   updateList(userId: string, list: List): any {
     const listId = list.id;
     delete list.id;
-    return this.firestore.doc(`users/${userId}/lists/${listId}`).update(list);
+    return this.firestore.doc(this.getListUrl(userId, listId)).update(list);
   }
 
   deleteList(userId: string, listId: string): any {
-    return this.firestore.doc(`users/${userId}/lists/${listId}`).delete();
+    return this.firestore.doc(this.getListUrl(userId, listId)).delete();
+  }
+
+  private getUserUrl(userId: string) {
+    return `users/${userId}`;
+  }
+
+  private getListUrl(userId: string, listId: string) {
+    return `users/${userId}/lists/${listId}`;
   }
 
 }

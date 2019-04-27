@@ -1,14 +1,14 @@
 <app-navbar (hideTasks)="hideTasks()" (hideLists)="hideLists()"></app-navbar>
 
-<div class="blocks-wrapper">
+<div class="app-blocks-wrapper">
 
-    <div [style.width]="chosenList ? '50%' : '100%'" *ngIf="listsShown" class="block-lists">
-      <div class="block-info" *ngIf="!chosenList"> {{'common.welcomeTitle' | translate | capitalize}} </div>
-      <div class="block-info" *ngIf="chosenList"> {{'common.listTitle' | translate | capitalize}} </div>
-      <div class="block-add">
+    <div [ngClass]="chosenList ? 'normal' : 'expanded'" *ngIf="listsShown" class="app-block-lists">
+      <div class="app-block-info" *ngIf="!chosenList"> {{'common.welcomeTitle' | translate | capitalize}} </div>
+      <div class="app-block-info" *ngIf="chosenList"> {{'common.listTitle' | translate | capitalize}} </div>
+      <div class="app-block">
         <form *ngIf="listForm" [formGroup]="listForm">
-            <input class="field-add" type="text" formControlName="name" placeholder="{{'common.listName' | translate | capitalize}}" />
-            <button class="button-add" (click)="createList(listForm)"> <fa name="plus"></fa> </button>
+            <input class="app-field" type="text" formControlName="name" placeholder="{{'common.listName' | translate | capitalize}}" />
+            <button class="app-button" (click)="createList(listForm)"> <fa name="plus"></fa> </button>
         </form>
       </div>
       <div class="lists">
@@ -18,30 +18,30 @@
       </div>
     </div>
 
-    <div *ngIf="chosenList" class="block-tasks">
+    <div *ngIf="chosenList" class="app-block-tasks">
       <ng-container *ngIf="tasksShown">
-        <div class="block-info" *ngIf="chosenList && !isArchive"> {{'common.taskTitle' | translate | capitalize}} </div>
-        <div class="block-add" *ngIf="chosenList && !isArchive">
+        <div class="app-block-info" *ngIf="chosenList && !isArchive"> {{'common.taskTitle' | translate | capitalize}} </div>
+        <div class="app-block" *ngIf="chosenList && !isArchive">
           <form *ngIf="chosenListForm" [formGroup]="chosenListForm">
-            <input class="field-add" type="text" formControlName="name" placeholder="{{'common.listEditName' | translate | capitalize}}" />
-              <button *ngIf="!isArchive" class="button-add" (click)="updateList(chosenListForm)"><fa name="pencil"></fa></button>
-              <button *ngIf="!isArchive" class="button-add" (click)="deleteList(chosenListForm)"><fa name="trash"></fa></button>
+            <input class="app-field" type="text" formControlName="name" placeholder="{{'common.listEditName' | translate | capitalize}}" />
+              <button *ngIf="!isArchive" class="app-button right" (click)="updateList(chosenListForm)"><fa name="pencil"></fa></button>
+              <button *ngIf="!isArchive" class="app-button" (click)="deleteList(chosenListForm)"><fa name="trash"></fa></button>
           </form>
         </div>
 
-        <div class="block-add" *ngIf="!isArchive">
+        <div class="app-block" *ngIf="!isArchive">
           <form *ngIf="taskForm && chosenList" [formGroup]="taskForm">
-            <input class="field-add" formControlName="name" placeholder="{{'common.taskName' | translate | capitalize}}" />
-              <button class="button-add" (click)="addTask(taskForm)"><fa name="plus"></fa></button>
+            <input class="app-field" formControlName="name" placeholder="{{'common.taskName' | translate | capitalize}}" />
+              <button class="app-button" (click)="addTask(taskForm)"><fa name="plus"></fa></button>
           </form>
         </div>
 
-        <div class="block-info" *ngIf="!isArchive && chosenTask"> {{'common.taskEditTitle' | translate | capitalize}} </div>
-        <div class="block-add" *ngIf="!isArchive && editTaskForm && chosenTask">
+        <div class="app-block-info" *ngIf="!isArchive && chosenTask"> {{'common.taskEditTitle' | translate | capitalize}} </div>
+        <div class="app-block" *ngIf="!isArchive && editTaskForm && chosenTask">
           <form [formGroup]="editTaskForm">
-            <input class="field-add" formControlName="name" placeholder="{{'common.taskEditName' | translate | capitalize}}" />
-            <button class="button-add" (click)="editTask(editTaskForm)"><fa name="pencil"></fa></button>
-            <button class="button-add" (click)="deleteTask()"><fa name="trash"></fa></button>
+            <input class="app-field" formControlName="name" placeholder="{{'common.taskEditName' | translate | capitalize}}" />
+            <button class="app-button right" (click)="editTask(editTaskForm)"><fa name="pencil"></fa></button>
+            <button class="app-button" (click)="deleteTask()"><fa name="trash"></fa></button>
           </form>
         </div>
       </ng-container>

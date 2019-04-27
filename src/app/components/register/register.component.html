@@ -1,20 +1,26 @@
-<div class="header"><img style="width: 156px; height: 156px;" src="../../../assets/img/checklist.png"/> <h1>{{'common.header' | translate | uppercase}}</h1></div>
-
-<div class="block-login">
-  <div class="login-form">
-    <div class="header-second"><h1>{{'common.registerTitle' | translate | uppercase}}</h1></div>
-    <form *ngIf="form" [formGroup]="form">
-      <input class="field-add" formControlName="email" type="text" placeholder="{{'common.email' | translate | capitalize}}"/>
-      <input class="field-add" formControlName="password" type="password" placeholder="{{'common.password' | translate | capitalize}}"/>
-      <input class="field-add" type="text" formControlName="name" placeholder="{{'common.name' | translate | capitalize}}"/>
-      <input class="field-add" type="text" formControlName="surname" placeholder="{{'common.surname' | translate | capitalize}}"/>
-      <button class="button-add" (click)="register(form)">{{'common.register' | translate | uppercase}}</button>
-      <p [routerLink]="['/login']" class="message">{{'common.loginInfo' | translate | capitalize}}</p>
-    </form>
-  </div>
+<div class="app-title">
+  <img class="app-form-image" src="../../../assets/img/checklist.png"/>
+  <h1> {{ 'common.header' | translate | uppercase }} </h1>
 </div>
 
-<div class="block-language">
-  <button class="button-lang" (click)="setLanguage('pl')"> PL </button>
-  <button class="button-lang" (click)="setLanguage('en')"> EN </button>
+<div class="app-form">
+  <div class="app-form-title"><h1> {{ 'common.registerTitle' | translate | uppercase }} </h1></div>
+  <form *ngIf="form" [formGroup]="form">
+    <input class="app-field app-form-field" formControlName="email" type="text"
+           placeholder="{{'common.email' | translate | capitalize}}"/>
+    <input class="app-field app-form-field" formControlName="password" type="password"
+           placeholder="{{'common.password' | translate | capitalize}}"/>
+    <input class="app-field app-form-field" type="text" formControlName="name"
+           placeholder="{{'common.name' | translate | capitalize}}"/>
+    <input class="app-field app-form-field" type="text" formControlName="surname"
+           placeholder="{{'common.surname' | translate | capitalize}}"/>
+    <button class="app-button app-form-button"
+            (click)="register(form)"> {{ 'common.register' | translate | uppercase }} </button>
+    <p [routerLink]="['/login']" class="app-form-message">{{'common.loginInfo' | translate | capitalize}}</p>
+  </form>
+</div>
+
+<div class="app-block-language">
+  <button class="app-button-lang" (click)="setLanguage('pl')"> {{'common.pl' | translate | uppercase}} </button>
+  <button class="app-button-lang" (click)="setLanguage('en')"> {{'common.en' | translate | uppercase}} </button>
 </div>

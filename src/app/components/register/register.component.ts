@@ -16,7 +16,6 @@ import { SpinnerService } from '../../shared/services/spinner.service';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
-
   readonly subscriptions = new Subscription();
 
   constructor(private formBuilder: FormBuilder,
@@ -51,9 +50,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         isNullOrUndefined(form.value.surname) || form.value.surname === '' ||
         isNullOrUndefined(form.value.email) || form.value.email === '' ||
         isNullOrUndefined(form.value.password) || form.value.password === '') {
-        this.snackBar.show(`messages.userDataEmpty`);
+        this.snackBar.show(`messages.userDataEmpty`, 'danger');
       } else {
-        this.snackBar.show(`messages.userNotUpdated`);
+        this.snackBar.show(`messages.userNotUpdated`, 'danger');
       }
       this.spinner.hide();
     }

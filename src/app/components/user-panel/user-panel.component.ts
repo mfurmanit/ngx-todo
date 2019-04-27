@@ -31,7 +31,7 @@ export class UserPanelComponent implements OnInit, OnDestroy {
     this.initFormGroup();
     this.userId = this.authService.user.uid;
     this.subscriptions.add(this.authService.getUserInfo(this.userId)
-      .subscribe(user => user.exists ? this.form.patchValue(user.data()) : this.snackBar.show('messages.userDataNotFound')));
+      .subscribe(user => user.exists ? this.form.patchValue(user.data()) : this.snackBar.show('messages.userDataNotFound', 'danger')));
   }
 
   ngOnDestroy(): void {
@@ -46,12 +46,16 @@ export class UserPanelComponent implements OnInit, OnDestroy {
       if (isNullOrUndefined(form.value.name) || form.value.name === '' ||
         isNullOrUndefined(form.value.surname) || form.value.surname === '' ||
         isNullOrUndefined(form.value.email) || form.value.email === '') {
-        this.snackBar.show(`messages.userDataEmpty`);
+        this.snackBar.show(`messages.userDataEmpty`, 'danger');
       } else {
-        this.snackBar.show(`messages.userNotUpdated`);
+        this.snackBar.show(`messages.userNotUpdated`, 'danger');
       }
       this.spinner.hide();
     }
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
   }
 
   private initFormGroup(): void {

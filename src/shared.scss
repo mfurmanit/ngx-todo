@@ -1,0 +1,42 @@
+$color-primary: #25a75c;
+$color-primary-light: #2ecc71;
+$color-secondary: #1f8c4d;
+$color-title: #195d2e;
+$color-stroke: #259149;
+$color-stroke-secondary: #1a6633;
+$color-dark: #000000;
+$color-dark-transparent: rgba(0, 0, 0, 0);
+$color-dark-transparent-secondary: rgba(0, 0, 0, 0.1);
+$color-dark-shadow: rgba(0, 0, 0, 0.2);
+$color-dark-shadow-secondary: rgba(0, 0, 0, 0.25);
+$color-white: #FCFCFC;
+$color-border: #F1F1F1;
+$color-danger: #a90800;
+
+@mixin form-properties($color, $background, $border, $outline, $width, $font-size, $media-size) {
+  color: $color;
+  background: $background;
+  border: $border;
+  outline: $outline;
+  width: $width;
+  font-size: $font-size;
+
+  @media screen and (max-width: 600px) {
+    font-size: $media-size;
+  }
+}
+
+@mixin block-properties($height, $padding, $font-size, $text-align, $font-weight, $color) {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: $color-border;
+
+  height: $height;
+  padding: $padding;
+  font-size: $font-size;
+  text-align: $text-align;
+  font-weight: $font-weight;
+  color: $color;
+}

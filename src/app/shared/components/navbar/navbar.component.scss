@@ -1,12 +1,14 @@
+@import '../../../../shared';
+
 .navbar {
   display: flex;
   justify-content: space-between;
-  background-color: #2ecc71;
+  background-color: $color-primary-light;
   width: 100%;
   height: 80px;
-  border: solid 2px #25a75c;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  border: solid 2px $color-primary;
+  -webkit-box-shadow: 0 1px 2px $color-dark-transparent-secondary;
+  box-shadow: 0 2px 2px $color-dark-transparent-secondary;
   box-sizing: border-box;
 }
 
@@ -16,7 +18,7 @@
   display: flex;
   text-align: center;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #259149;
+  -webkit-text-stroke-color: $color-stroke;
 
   .anchor-left {
     width: 50%;
@@ -41,22 +43,20 @@
 
 .title {
   width: 400px;
-  color: #fff;
+  color: $color-white;
   font-size: 32px;
-  font-family: "Roboto", sans-serif;
   font-weight: bold;
   text-align: center;
   line-height: 80px;
-}
 
-@media screen and (max-width: 600px) {
-  .title {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 }
 
 .stroke {
-  -webkit-text-stroke-width: 3px !important;
-  -webkit-text-stroke-color: #1a6633 !important;
-  outline: none !important;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: $color-stroke-secondary;
+  outline: 0;
 }
+

@@ -5,8 +5,8 @@ export class List {
   name?: string;
   tasks?: Task[];
 
-  constructor(names: string, tasks: Task[]) {
-    this.id = null;
+  constructor(id: string, names: string, tasks: Task[]) {
+    this.id = id;
     this.name = names;
     this.tasks = tasks;
   }

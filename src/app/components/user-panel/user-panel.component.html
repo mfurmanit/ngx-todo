@@ -1,11 +1,17 @@
 <app-navbar></app-navbar>
 
-<div class="block-info"> EDYCJA DANYCH UŻYTKOWNIKA </div>
-<div class="block-add">
+<div class="app-block-info app-panel-block-info"> {{'common.userPanelTitle' | translate | uppercase}} </div>
+<div class="app-panel-block">
   <form *ngIf="form" [formGroup]="form">
-    <input class="field-add" type="text" placeholder="{{'common.email' | translate | capitalize}}" formControlName="email"/>
-    <input class="field-add" type="text" placeholder="{{'common.name' | translate | capitalize}}" formControlName="name"/>
-    <input class="field-add" type="text" placeholder="{{'common.surname' | translate | capitalize}}" formControlName="surname"/>
-    <button class="button-add" (click)="saveData(form)">{{'common.saveData' | translate | uppercase}}</button>
+    <input class="app-field app-panel-field" type="text" placeholder="{{'common.email' | translate | capitalize}}" formControlName="email"/>
+    <input class="app-field app-panel-field" type="text" placeholder="{{'common.name' | translate | capitalize}}" formControlName="name"/>
+    <input class="app-field app-panel-field" type="text" placeholder="{{'common.surname' | translate | capitalize}}" formControlName="surname"/>
+    <button class="app-button app-panel-button" (click)="saveData(form)">{{'common.saveData' | translate | uppercase}}</button>
   </form>
+</div>
+
+<div class="app-block-info app-panel-block-info"> {{'common.languageTitle' | translate | uppercase}} </div>
+<div class="app-block-language app-panel-block-info">
+  <button class="app-button-lang" (click)="setLanguage('pl')"> {{'common.pl' | translate | uppercase}} </button>
+  <button class="app-button-lang" (click)="setLanguage('en')"> {{'common.en' | translate | uppercase}} </button>
 </div>

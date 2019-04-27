@@ -4,9 +4,9 @@ export class Task {
   isPartiallyDone?: boolean;
   isDone?: boolean;
 
-  constructor(names: string, isPartiallyDone: boolean, isDone: boolean) {
-    this.id = null;
-    this.name = names;
+  constructor(id: string, name: string, isPartiallyDone: boolean, isDone: boolean) {
+    this.id = id;
+    this.name = name;
     this.isPartiallyDone = isPartiallyDone;
     this.isDone = isDone;
   }

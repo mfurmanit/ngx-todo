@@ -6,6 +6,8 @@
     "listTitle": "Choose a different list or add a new one!",
     "taskTitle": "Mark task or edit list!",
     "taskEditTitle": "Edit selected task!",
+    "userPanelTitle": "Editing user data",
+    "languageTitle": "Changing the language",
 
     "listName": "Enter the name of the new list",
     "listEditName": "Edit the name of the selected list",
@@ -23,7 +25,10 @@
     "email": "Email",
     "name": "First name",
     "surname": "Surname",
-    "password": "Password"
+    "password": "Password",
+
+    "pl": "pl",
+    "en": "en"
   },
   "messages": {
     "listCreated": "A new list has been successfully created.",

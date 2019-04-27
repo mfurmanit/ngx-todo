@@ -12,7 +12,7 @@ export class TasksService {
   }
 
   getTasks(userId: string, listId: string): any {
-    return this.firestore.doc(`users/${userId}/lists/${listId}`).collection('tasks').snapshotChanges().pipe(map(tasks => {
+    return this.firestore.doc(this.getListUrl(userId, listId)).collection('tasks').snapshotChanges().pipe(map(tasks => {
       return tasks.map(task => {
         return {
           id: task.payload.doc.id,
@@ -24,16 +24,25 @@ export class TasksService {
 
   createTask(userId: string, listId: string, task: Task): any {
     delete task.id;
-    return this.firestore.doc(`users/${userId}/lists/${listId}`).collection('tasks').add(task);
+    return this.firestore.doc(this.getListUrl(userId, listId)).collection('tasks').add(task);
   }
 
   updateTask(userId: string, listId: string, task: Task): any {
     const taskId = task.id;
     delete task.id;
-    return this.firestore.doc(`users/${userId}/lists/${listId}/tasks/${taskId}`).update(task);
+    return this.firestore.doc(this.getTaskUrl(userId, listId, taskId)).update(task);
   }
 
   deleteTask(userId: string, listId: string, taskId: string): any {
-    return this.firestore.doc(`users/${userId}/lists/${listId}/tasks/${taskId}`).delete();
+    return this.firestore.doc(this.getTaskUrl(userId, listId, taskId)).delete();
   }
+
+  private getListUrl(userId: string, listId: string) {
+    return `users/${userId}/lists/${listId}`;
+  }
+
+  private getTaskUrl(userId: string, listId: string, taskId: string) {
+    return `users/${userId}/lists/${listId}/tasks/${taskId}`;
+  }
+
 }

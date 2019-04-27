@@ -47,27 +47,27 @@ export class AuthenticationService {
     this.user.updateEmail(userInfo.email)
       .then(() => this.firestore.collection('users').doc(userId).update(userInfo)
         .then(() => this.snackBar.show('messages.userUpdated')))
-      .catch(() => this.snackBar.show('messages.userNotUpdated'))
+      .catch(() => this.snackBar.show('messages.userNotUpdated', 'danger'))
       .finally(() => this.spinner.hide())
-      .catch(() => this.snackBar.show('messages.userNotUpdated'))
+      .catch(() => this.snackBar.show('messages.userNotUpdated', 'danger'))
       .finally(() => this.spinner.hide());
   }
 
   login(credentials: Credentials) {
-    this.fireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(() => {
+    this.fireAuth.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => {
       return this.fireAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password).then(() =>
         this.router.navigate(['dashboard', {isArchive: false}]))
         .catch(error => {
           if (error.code === 'auth/invalid-email') {
-            this.snackBar.show('messages.wrongEmail');
+            this.snackBar.show('messages.wrongEmail', 'danger');
           } else if (error.code === 'auth/wrong-password') {
-            this.snackBar.show('messages.wrongPassword');
+            this.snackBar.show('messages.wrongPassword', 'danger');
           } else if (error.code === 'auth/too-many-requests') {
-            this.snackBar.show('messages.tooManyRequests');
+            this.snackBar.show('messages.tooManyRequests', 'danger');
           } else if (error.code === 'auth/user-not-found') {
-            this.snackBar.show('messages.userNotFound');
+            this.snackBar.show('messages.userNotFound', 'danger');
           } else {
-            this.snackBar.show('messages.loginError');
+            this.snackBar.show('messages.loginError', 'danger');
           }
         }).finally(() => this.spinner.hide());
     });
@@ -81,15 +81,15 @@ export class AuthenticationService {
           this.router.navigate(['login']);
           this.snackBar.show('messages.userCreated');
         })
-        .catch(() => this.snackBar.show('messages.userNotCreated'))
+        .catch(() => this.snackBar.show('messages.userNotCreated', 'danger'))
         .finally(() => this.spinner.hide());
     }).catch(error => {
       if (error.code === 'auth/email-already-in-use') {
-        this.snackBar.show('messages.emailInUse');
+        this.snackBar.show('messages.emailInUse', 'danger');
       } else if (error.code === 'auth/weak-password') {
-        this.snackBar.show('messages.weakPassword');
+        this.snackBar.show('messages.weakPassword', 'danger');
       } else {
-        this.snackBar.show('messages.userNotCreated');
+        this.snackBar.show('messages.userNotCreated', 'danger');
       }
     }).finally(() => this.spinner.hide());
   }
@@ -97,6 +97,5 @@ export class AuthenticationService {
   logout(): any {
     return this.fireAuth.auth.signOut().then(() => this.router.navigate(['login']));
   }
-
 
 }

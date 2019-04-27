@@ -1,118 +1,27 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import '../../../shared.scss';
 
-.tick {
-  user-select: none;
-  margin: 0 5px;
-  background: url("../../../assets/img/tick_border.png") no-repeat;
-  background-size: cover;
-  width: 42px;
-  height: 42px;
-  display: inline-block;
-  vertical-align: middle;
+%shared {
+  overflow-y: auto;
+  border-right: 1px solid #f1f1f1;
+  height: auto;
+
+  @media screen and (max-width: 600px) {
+    overflow-y: hidden;
+  }
 }
 
-.tick-full {
+%ticks-properties {
   user-select: none;
   margin: 0 5px;
-  background: url("../../../assets/img/tick.png") no-repeat;
-  background-size: cover;
+  background-size: cover !important;
   width: 42px;
   height: 42px;
   display: inline-block;
   vertical-align: middle;
-  cursor: pointer;
 
   &.archive {
     cursor: default;
   }
-}
-
-.yellow-tick {
-  user-select: none;
-  background: url("../../../assets/img/tick_yellow_border.png") no-repeat;
-  background-size: cover;
-  width: 42px;
-  height: 42px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.yellow-tick-full {
-  user-select: none;
-  background: url("../../../assets/img/tick_yellow.png") no-repeat;
-  background-size: cover;
-  width: 42px;
-  height: 42px;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-
-  &.archive {
-    cursor: default;
-  }
-}
-
-.blocks-wrapper {
-  display: flex;
-  width: 100%;
-  height: 90vh;
-}
-
-.block-lists {
-  border-right: 1px solid #f1f1f1;
-  background-color: #f39c1203;
-  height: auto;
-  width: 40%;
-  text-align: center;
-  overflow-y: scroll;
-}
-
-.block-tasks {
-  height: auto;
-  flex: 1;
-  border-right: 1px solid #f1f1f1;
-  overflow-y: scroll;
-}
-
-.block-add {
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #f1f1f1;
-  padding: 10px;
-}
-
-.block-info {
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #f1f1f1;
-  padding: 16px;
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-  font-size: 26px;
-  font-weight: bold;
-  color: #195d2e;
-}
-
-.lists {
-  height: auto;
-
-  li {
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-}
-
-form {
-  display: inherit;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
 }
 
 ul {
@@ -126,13 +35,16 @@ li {
   width: auto;
   height: auto;
   line-height: 50px;
-  border-bottom: 1px solid #f1f1f1;
-  font-family: "Roboto", sans-serif;
-  color: black;
+  border-bottom: $color-border;
+  color: $color-dark;
   word-wrap: break-word;
   padding: 10px;
   font-size: 22px;
   font-weight: bold;
+
+  @media screen and (max-width: 600px) {
+    font-size: 18px;
+  }
 }
 
 li span {
@@ -142,10 +54,16 @@ li span {
 li span:hover {
   user-select: none;
   cursor: pointer;
-}
-
-.block-tasks li span:hover {
   text-decoration: underline;
+
+  &.task-archive {
+    text-decoration: none;
+  }
+
+  &.task-archive-done {
+    text-decoration: line-through;
+  }
+
 }
 
 .task-archive-done {
@@ -157,42 +75,82 @@ li span:hover {
   cursor: default !important;
 }
 
-i.fa {
-  line-height: 30px !important;
-  font-size: 20px;
-}
-
 fa {
   font-size: 32px;
+
+  @media screen and (max-width: 600px) {
+    font-size: 26px;
+  }
 }
 
-.field-add {
-  border: 2px solid #25a75c;
-  outline: #25a75c;
-  font: normal 20px / normal Tahoma, Geneva, sans-serif;
-  color: rgba(0, 0, 0, 1);
-  background: rgba(252, 252, 252, 1);
-  width: 90%;
-  margin-right: 5px;
-  text-align: center;
+.tick {
+  background: url("../../../assets/img/tick_border.png") no-repeat;
+  @extend %ticks-properties;
 }
 
-.button-add {
+.tick-full {
+  background: url("../../../assets/img/tick.png") no-repeat;
+  @extend %ticks-properties;
   cursor: pointer;
-  outline: none;
-  min-width: 40px;
-  border: 2px solid #25a75c;
-  font: normal 26px / normal Tahoma, Geneva, sans-serif;
-  color: #25a75c;
-  background: rgba(255, 255, 255, 0.9);
-  transition: 0.2s;
 }
 
-.button-add:hover {
-  @extend .button-add;
-  color: rgba(255, 255, 255, 0.9);
-  background: #25a75c;
+.yellow-tick {
+  background: url("../../../assets/img/tick_yellow_border.png") no-repeat;
+  @extend %ticks-properties;
 }
+
+.yellow-tick-full {
+  background: url("../../../assets/img/tick_yellow.png") no-repeat;
+  @extend %ticks-properties;
+  cursor: pointer;
+}
+
+.app-blocks-wrapper {
+  display: flex;
+  width: 100%;
+  height: calc(100% - 80px);
+
+  @media screen and (max-width: 600px) {
+    display: block;
+    overflow-y: auto;
+  }
+
+  .app-block-lists {
+    @extend %shared;
+    text-align: center;
+
+    &.normal {
+      width: 50%;
+
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+    }
+
+    &.expanded {
+      width: 100%;
+    }
+
+    .lists {
+      height: auto;
+
+      li {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .app-block-tasks {
+    @extend %shared;
+    flex: 1;
+  }
+}
+
+
+
+
+
 
 
 

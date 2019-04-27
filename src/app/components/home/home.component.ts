@@ -115,9 +115,9 @@ export class HomeComponent implements OnInit {
 
   private showError(form: FormGroup, prefix: string, suffix: string): void {
     if (isNullOrUndefined(form.value.name) || form.value.name === '') {
-      this.snackBar.show(`messages.${prefix}NameEmpty`);
+      this.snackBar.show(`messages.${prefix}NameEmpty`, 'danger');
     } else {
-      this.snackBar.show(`messages.${prefix}Not${suffix}`);
+      this.snackBar.show(`messages.${prefix}Not${suffix}`, 'danger');
     }
     this.spinner.hide();
   }
@@ -128,7 +128,7 @@ export class HomeComponent implements OnInit {
     if (form.valid) {
       this.subscriptions.add(this.taskService.createTask(this.userId, this.chosenList.id, form.value)
         .then(() => this.snackBar.show('messages.taskCreated'))
-        .catch(() => this.snackBar.show('messages.taskNotCreated'))
+        .catch(() => this.snackBar.show('messages.taskNotCreated', 'danger'))
         .finally(() => this.spinner.hide()));
     } else {
       this.showError(form, 'task', 'Created');
@@ -152,7 +152,7 @@ export class HomeComponent implements OnInit {
       } else if (!task.isPartiallyDone) {
         this.snackBar.show('messages.taskUndone');
       }
-    }).catch(() => this.snackBar.show('messages.taskNotMarked'))
+    }).catch(() => this.snackBar.show('messages.taskNotMarked', 'danger'))
       .finally(() => this.spinner.hide()));
   }
 
@@ -165,7 +165,7 @@ export class HomeComponent implements OnInit {
     if (form.valid) {
       this.subscriptions.add(this.taskService.updateTask(this.userId, this.chosenList.id, task)
         .then(() => this.snackBar.show('messages.taskEdited'))
-        .catch(() => this.snackBar.show('messages.taskNotEdited'))
+        .catch(() => this.snackBar.show('messages.taskNotEdited', 'danger'))
         .finally(() => this.spinner.hide()));
     } else {
       this.showError(form, 'task', 'Edited');
@@ -179,7 +179,7 @@ export class HomeComponent implements OnInit {
         this.tasks = this.tasks.filter(value => value.id !== this.chosenTask.id);
         this.chosenTask = null;
         this.snackBar.show('messages.taskDeleted');
-      }).catch(() => this.snackBar.show('messages.taskNotDeleted'))
+      }).catch(() => this.snackBar.show('messages.taskNotDeleted', 'danger'))
       .finally(() => this.spinner.hide()));
   }
 
