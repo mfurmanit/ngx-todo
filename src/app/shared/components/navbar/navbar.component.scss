@@ -7,9 +7,8 @@
   width: 100%;
   height: 80px;
   border: solid 2px $color-primary;
-  -webkit-box-shadow: 0 1px 2px $color-dark-transparent-secondary;
-  box-shadow: 0 2px 2px $color-dark-transparent-secondary;
   box-sizing: border-box;
+  @include box-shadow(0 2px 2px $color-dark-transparent-secondary);
 }
 
 .anchors {
@@ -22,12 +21,12 @@
 
   .anchor-left {
     width: 50%;
-    border-right: solid 2px #25a75c;
+    border-right: solid 2px $color-primary;
   }
 
   .anchor-right {
     width: 50%;
-    border-left: solid 2px #25a75c;
+    border-left: solid 2px $color-primary;
   }
 
   fa {

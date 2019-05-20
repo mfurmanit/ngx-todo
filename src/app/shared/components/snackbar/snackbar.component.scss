@@ -6,10 +6,10 @@
   bottom: 50px;
   left: 50%;
   padding: 20px 20px;
-  border-radius: 4px;
   min-width: 20%;
   transform-origin: center center;
-  transform: translate(-50%, 0%);
+  @include border-radius(4px);
+  @include transform(translate(-50%, 0%));
 
   &.success {
     background: $color-primary;

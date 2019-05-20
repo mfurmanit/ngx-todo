@@ -40,3 +40,39 @@ $color-danger: #a90800;
   font-weight: $font-weight;
   color: $color;
 }
+
+@mixin transform($value) {
+  transform: $value;
+  -moz-transform: $value;
+  -ms-transform: $value;
+  -webkit-transform: $value;
+  -o-transform: $value;
+}
+
+@mixin animation($value) {
+  animation: $value;
+  -moz-animation: $value;
+  -webkit-animation: $value;
+  -o-animation: $value;
+}
+
+@mixin animation-delay($value) {
+  animation-delay: $value;
+  -moz-animation-delay: $value;
+  -webkit-animation-delay: $value;
+  -o-animation-delay: $value;
+}
+
+@mixin border-radius($value) {
+  border-radius: $value;
+  -moz-border-radius: $value;
+  -webkit-border-radius: $value;
+}
+
+@mixin box-shadow($value) {
+  box-shadow: $value;
+  -moz-box-shadow: $value;
+  -webkit-box-shadow: $value;
+  -o-box-shadow: $value;
+}
+

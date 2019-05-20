@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { List } from 'src/app/shared/model/list';
 import { Task } from 'src/app/shared/model/task';
@@ -7,17 +7,17 @@ import { TasksService } from '../../shared/services/tasks.service';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
-import { isNullOrUndefined } from 'util';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from '../../shared/services/spinner.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   listForm: FormGroup;
   taskForm: FormGroup;
@@ -52,6 +52,10 @@ export class HomeComponent implements OnInit {
     this.chosenListForm = this.initListFormGroup();
     this.taskForm = this.initTaskFormGroup();
     this.subscriptions.add(this.listService.getLists(this.userId).subscribe(data => this.lists = data));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   hideLists(): void {
@@ -166,7 +170,7 @@ export class HomeComponent implements OnInit {
       this.subscriptions.add(this.taskService.updateTask(this.userId, this.chosenList.id, task)
         .then(() => this.snackBar.show('messages.taskEdited'))
         .catch(() => this.snackBar.show('messages.taskNotEdited', 'danger'))
-        .finally(() => this.spinner.hide()));
+        .finally(() => { this.chosenTask = null; this.spinner.hide() }));
     } else {
       this.showError(form, 'task', 'Edited');
     }
@@ -177,10 +181,9 @@ export class HomeComponent implements OnInit {
     this.subscriptions.add(this.taskService.deleteTask(this.userId, this.chosenList.id, this.chosenTask.id)
       .then(() => {
         this.tasks = this.tasks.filter(value => value.id !== this.chosenTask.id);
-        this.chosenTask = null;
         this.snackBar.show('messages.taskDeleted');
       }).catch(() => this.snackBar.show('messages.taskNotDeleted', 'danger'))
-      .finally(() => this.spinner.hide()));
+      .finally(() => { this.chosenTask = null; this.spinner.hide() }));
   }
 
   onMouseEnter(event, task: Task, doneIcon: boolean): void {
