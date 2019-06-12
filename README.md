@@ -1,27 +1,37 @@
 # NgxTodo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.6.
+Project carried out for university subject. Implementation of simple to-do list using Angular 7.2.0. Main purpose of the project was to handle simple logic such as creating, modyfing and creating lists, adding tasks, marking tasks as completed or partially completed, viewing archive, changing language and registering new accounts (with their own data). Due to requirements I decided not to use any styling library such as Bootstrap or Angular Material. 
 
-## Development server
+## What could have been done better | What can be implemented in the future
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- better look / styling / css (using Angular Material probably)
+- sorting lists
+- customizing lists (icons, dates, notifications and etc.)
+- better committs (finishing one task at the time, then commit and so on - good for bigger projects)
+- change simple firebase connection to client-server application (with backend written in Java for example - Spring Boot with OAuth2 security or at least some JWT Token)
 
-## Code scaffolding
+## What I've learned:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- how to build and structure simple angular projekt using Angular CLI
+- how to style elements without using third-party libraries such as Angular Material or Bootstrap
+- how to plug and use ngx-translations in simple angular project
+- how google firebase works
+- how to make better commits 
+- general stuff in Angular (components, lazy loading, guards, pipes, subjects and etc.)
+- that project, commits and any other stuff should be written in english
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Images
+<details>
+<summary>
+  Expand to show images!
+</summary>
+  <img src="readme/1%20-%20login.png" />
+  <img src="readme/2%20-%20register.png" />
+  <img src="readme/3%20-%20home.png" />
+  <img src="readme/4%20-%20tasks.png" />
+  <img src="readme/5%20-%20tasks.png" />
+  <img src="readme/6%20-%20tasks.png" />
+  <img src="readme/7%20-%20account.png" />
+</details>
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
