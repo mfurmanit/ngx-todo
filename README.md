@@ -1,3 +1,5 @@
+<img  width="150" height="150" src="readme/icon.png" alt="NgxTodo icon">
+
 # NgxTodo
 
 Project carried out for university subject. Implementation of simple to-do list using Angular 7.2.0. Main purpose of the project was to handle simple logic such as creating, modyfing and creating lists, adding tasks, marking tasks as completed or partially completed, viewing archive, changing language and registering new accounts (with their own data). Due to requirements I decided not to use any styling library such as Bootstrap or Angular Material. 
