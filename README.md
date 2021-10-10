@@ -1,4 +1,4 @@
-<img  width="150" height="150" src="readme/icon.png" alt="NgxTodo icon">
+<img  width="125" height="125" src="readme/icon.png" alt="NgxTodo icon">
 
 # NgxTodo
 
